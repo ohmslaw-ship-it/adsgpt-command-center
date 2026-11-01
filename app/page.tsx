@@ -104,7 +104,7 @@ function HeroButton({
   const styles =
     variant === "solid"
       ? "hover-btn-primary bg-ink text-white hover:bg-navy"
-      : "border border-line bg-white text-body hover:border-muted/40";
+      : "border border-[#050545]/15 bg-white/60 text-[#050545] hover:border-[#050545]/30 hover:bg-white";
 
   return (
     <SectionLink sectionId={sectionId} className={`${base} ${styles}`}>

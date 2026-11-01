@@ -16,9 +16,9 @@ export function HeroBackground() {
         className="hero-dot-grid absolute inset-0 z-[1]"
         style={{
           WebkitMaskImage:
-            "linear-gradient(180deg, #000 0%, #000 55%, transparent 100%)",
+            "radial-gradient(ellipse 80% 70% at 50% 35%, black 40%, transparent 100%)",
           maskImage:
-            "linear-gradient(180deg, #000 0%, #000 55%, transparent 100%)",
+            "radial-gradient(ellipse 80% 70% at 50% 35%, black 40%, transparent 100%)",
         }}
       />
 

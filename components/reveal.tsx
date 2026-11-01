@@ -46,7 +46,9 @@ function useRevealOnce() {
     const show = () => setVisible(true);
 
     if (isInViewport(node)) {
-      show();
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => show());
+      });
       return;
     }
 
