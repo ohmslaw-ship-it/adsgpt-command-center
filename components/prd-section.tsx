@@ -27,35 +27,67 @@ const priorityStyles: Record<
   P2: "bg-[#EEEAFE] text-lavender-dark",
 };
 
-function CheckIcon() {
+function userInitial(label: string) {
+  const word = label.replace(/^Primary\s+—\s+/i, "").replace(/^Secondary\s+—\s+/i, "").trim();
+  return word.charAt(0).toUpperCase() || "?";
+}
+
+function userRoleLabel(title: string) {
+  return title.replace(/^Primary\s+—\s+/i, "").replace(/^Secondary\s+—\s+/i, "").trim();
+}
+
+function PrdUserRows({
+  users,
+}: {
+  users: { title: string; persona: { role: string } }[];
+}) {
   return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="none"
-      aria-hidden
-      className="text-lavender-dark"
-    >
-      <path
-        d="M2.5 6L5 8.5L9.5 3.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <ul className="list-none space-y-4">
+      {users.map((user) => (
+        <li key={user.title} className="flex gap-3">
+          <span
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#EEF0FD] text-[15px] font-semibold text-lavender-dark"
+            aria-hidden
+          >
+            {userInitial(user.title)}
+          </span>
+          <div className="min-w-0 pt-0.5">
+            <p className="font-semibold text-navy">{userRoleLabel(user.title)}</p>
+            <p className="mt-1 text-muted">{user.persona.role}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }
 
-function PrdCheckList({ items }: { items: string[] }) {
+function PrdNumberedList({ items }: { items: string[] }) {
   return (
-    <ul className="space-y-3">
+    <ol className="list-none space-y-3">
+      {items.map((item, index) => (
+        <li key={item} className="flex gap-3 text-muted">
+          <span
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EEEAFE] text-[13px] font-semibold text-[#6B5BD6]"
+            aria-hidden
+          >
+            {index + 1}
+          </span>
+          <span className="min-w-0 pt-0.5">{item}</span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function PrdMutedDashList({ items }: { items: string[] }) {
+  return (
+    <ul className="list-none space-y-3">
       {items.map((item) => (
         <li key={item} className="flex items-start gap-3 text-muted">
-          <span className="mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#EEEAFE]">
-            <CheckIcon />
-          </span>
+          <span
+            className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#B8BAD6]"
+            aria-hidden
+          />
           <span>{item}</span>
         </li>
       ))}
@@ -63,12 +95,23 @@ function PrdCheckList({ items }: { items: string[] }) {
   );
 }
 
+function splitUserStory(story: string) {
+  const match = story.match(/^(As an? [^,]+), (.*)$/);
+  if (!match) {
+    return { lead: story, rest: "" };
+  }
+  return { lead: `${match[1]},`, rest: match[2] };
+}
+
 function formatAcceptance(text: string) {
-  const parts = text.split(/(Given|When|Then)/gi);
+  const parts = text.split(/(Given|when|then)/);
   return parts.map((part, index) => {
-    if (/^(Given|When|Then)$/i.test(part)) {
+    if (part === "Given" || part === "when" || part === "then") {
       return (
-        <span key={index} className="font-semibold">
+        <span
+          key={index}
+          className="text-[13px] font-semibold text-[#6B5BD6]"
+        >
           {part}
         </span>
       );
@@ -96,47 +139,6 @@ function PrdCard({
         <div className="mt-4 space-y-4">{children}</div>
       </article>
     </FadeIn>
-  );
-}
-
-function PersonaCard({
-  title,
-  persona,
-}: {
-  title: string;
-  persona: {
-    role: string;
-    goal: string;
-    pain: string;
-    quote: string;
-  };
-}) {
-  return (
-    <div className="rounded-2xl bg-hero-wash p-5 sm:p-6">
-      <div className="flex flex-wrap items-center gap-2">
-        <p className="text-h3">{title}</p>
-        <span className="rounded-full bg-[#EEEAFE] px-2.5 py-0.5 text-[12px] font-semibold text-lavender-dark normal-case tracking-normal">
-          Illustrative
-        </span>
-      </div>
-      <dl className="mt-3 space-y-2">
-        <div>
-          <dt className="text-fg-muted">Role</dt>
-          <dd className="mt-0.5 text-body">{persona.role}</dd>
-        </div>
-        <div>
-          <dt className="text-fg-muted">Goal</dt>
-          <dd className="mt-0.5 text-body">{persona.goal}</dd>
-        </div>
-        <div>
-          <dt className="text-fg-muted">Pain</dt>
-          <dd className="mt-0.5 text-body">{persona.pain}</dd>
-        </div>
-      </dl>
-      <blockquote className="mt-3 border-l-2 border-lavender pl-3 text-muted italic">
-        &ldquo;{persona.quote}&rdquo;
-      </blockquote>
-    </div>
   );
 }
 
@@ -249,16 +251,7 @@ export function PrdSection() {
           </PrdCard>
 
           <PrdCard id="prd-users" title="Users">
-            <div className="space-y-4">
-              <PersonaCard
-                title={prdUsers.primary.title}
-                persona={prdUsers.primary.persona}
-              />
-              <PersonaCard
-                title={prdUsers.secondary.title}
-                persona={prdUsers.secondary.persona}
-              />
-            </div>
+            <PrdUserRows users={[prdUsers.primary, prdUsers.secondary]} />
           </PrdCard>
 
           <PrdCard id="prd-goals" title="Goals">
@@ -266,45 +259,42 @@ export function PrdSection() {
               <div className="rounded-2xl bg-hero-wash p-5 sm:p-6">
                 <p className="font-medium text-navy">Goals</p>
                 <div className="mt-3">
-                  <PrdCheckList items={prdGoals.goals} />
+                  <PrdNumberedList items={prdGoals.goals} />
                 </div>
               </div>
               <div className="rounded-2xl bg-[#FFF4F5] p-5 sm:p-6">
                 <p className="font-medium text-navy">Non-goals</p>
                 <div className="mt-3">
-                  <PrdCheckList items={prdGoals.nonGoals} />
+                  <PrdMutedDashList items={prdGoals.nonGoals} />
                 </div>
               </div>
             </div>
           </PrdCard>
 
           <PrdCard id="prd-user-stories" title="User stories">
-            <ul className="space-y-4">
-              {prdUserStories.map((item) => (
-                <li
-                  key={item.story}
-                  className="rounded-2xl bg-[#F8F9FD] p-5 sm:p-6"
-                >
-                  <p className="text-[17px] font-medium leading-snug text-navy">
-                    {item.story}
-                  </p>
-                  <hr className="my-4 border-0 border-t border-line/80" />
-                  <ul className="space-y-3">
-                    {item.acceptance.map((criterion) => (
-                      <li
-                        key={criterion}
-                        className="flex items-start gap-3 text-muted"
-                      >
-                        <span className="mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#EEEAFE]">
-                          <CheckIcon />
-                        </span>
-                        <span>{formatAcceptance(criterion)}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
+            <div className="space-y-4">
+              {prdUserStories.map((item) => {
+                const { lead, rest } = splitUserStory(item.story);
+                return (
+                  <article
+                    key={item.story}
+                    className="rounded-2xl bg-[#F7F7FE] p-4"
+                  >
+                    <p className="text-[17px] leading-snug text-body">
+                      <span className="font-semibold text-navy">{lead}</span>
+                      {rest ? ` ${rest}` : null}
+                    </p>
+                    <ul className="mt-4 list-none space-y-4 border-t border-line/80 pt-4">
+                      {item.acceptance.map((criterion) => (
+                        <li key={criterion} className="text-[15px] leading-snug text-muted">
+                          {formatAcceptance(criterion)}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                );
+              })}
+            </div>
           </PrdCard>
 
           <PrdCard id="prd-requirements" title="Requirements">
@@ -356,7 +346,7 @@ export function PrdSection() {
           </PrdCard>
 
           <PrdCard id="prd-out-of-scope" title="Out of scope">
-            <PrdCheckList items={prdOutOfScope} />
+            <PrdMutedDashList items={prdOutOfScope} />
           </PrdCard>
         </div>
       </div>

@@ -70,9 +70,9 @@ export const prdUsers = {
 
 export const prdGoals = {
   goals: [
-    "Cut Monday portfolio review time from ~90 minutes to under 20.",
-    "Surface overspend the same calendar day it happens, using a consistent rule across clients.",
-    "Let the lead act in one click (with undo), not copy-paste into four platforms.",
+    "Cut Monday portfolio review from ~3 hours to under 20 minutes per account manager.",
+    "Catch overspend the same day it happens, not at the next weekly review.",
+    "Let the lead act in one click, with undo, instead of logging into four ad platforms.",
   ],
   nonGoals: [
     "Replacing Google, Meta, DV360, or Amazon as the system of record.",
@@ -84,51 +84,49 @@ export const prdGoals = {
 export const prdUserStories: PrdUserStory[] = [
   {
     story:
-      "As an Agency Account Lead, I want a single portfolio table sorted by severity, so that I open one view instead of 20 tabs.",
+      "As an Agency Account Lead, I want one portfolio table sorted by severity, so I can review every brand without opening ten platform tabs.",
     acceptance: [
-      "Given I land on the brief, when the portfolio loads, then clients appear with status Overspend, Watch, or Healthy and Overspend rows sort first.",
-      "Given I search by client name, when I type a partial match, then the table filters without losing status pills or spend columns.",
-      "Given a client is Healthy, when I expand nothing, then I still see today spend, MTD pacing, and creative health at a glance.",
+      "Given I open the brief, when the portfolio loads, then every client shows as Overspend, Watch or Healthy, with Overspend first.",
+      "Given I type part of a client's name, when the search runs, then the table filters and keeps its status pills and spend columns.",
     ],
   },
   {
     story:
-      "As an Agency Account Lead, I want an Overspend Guard roll-up, so that I know how many accounts broke the daily cap today.",
+      "As an Agency Account Lead, I want overspend flagged automatically, so I know which accounts broke their normal spend today.",
     acceptance: [
-      "Given a client's today spend exceeds 4× its peak single-day spend in the trailing 90 days, when the brief refreshes, then that client is marked Overspend and counted in the guard summary.",
-      "Given no clients exceed the threshold, when I view the summary, then the guard shows zero and links to the empty filter state.",
+      "Given a client's spend today is more than 4× its highest daily spend in the last 90 days, when the brief refreshes, then the client is marked Overspend and counted in the summary.",
+      "Given no client crosses that line, when I view the summary, then the Overspend count shows zero.",
     ],
   },
   {
     story:
-      "As an Agency Account Lead, I want a Creative Fatigue roll-up, so that I refresh creative before CTR collapses.",
+      "As an Agency Account Lead, I want tired creatives called out, so I can refresh them before results drop.",
     acceptance: [
-      "Given a creative's 30-day frequency is above 4 and its CTR is at least 15% below the median CTR of sibling creatives on that client, when the brief loads, then it is tagged Fatigued and the client moves to Watch unless already Overspend.",
-      "Given the roll-up count, when I click through, then I see which clients have at least one fatigued creative.",
+      "Given a creative's frequency is above 4 and its CTR has dropped over the last 30 days, when the brief loads, then it is flagged Fatigued and the client moves to Watch, unless it is already Overspend.",
+      "Given a client is on Watch for fatigue, when I expand its row, then I see which of its creatives are fatigued.",
     ],
   },
   {
     story:
-      "As an Agency Account Lead, I want to Ask AdsGPT to apply a governed action, so that I pause or cap spend without leaving the brief.",
+      "As an Agency Account Lead, I want to apply a suggested action from AdsGPT, so I can act without leaving the brief.",
     acceptance: [
-      "Given I select a suggested action for a client, when I confirm, then the UI records the action locally and shows success with what changed.",
-      "Given an action requires platform write access, when AdsGPT returns a plan, then I see the target entity and expected outcome before confirming.",
+      "Given AdsGPT suggests an action, when I review it, then I see what it will change and the expected result before I confirm.",
+      "Given I confirm the action, when it is applied, then the row updates and a short success message appears (demo only, no real platform changes).",
     ],
   },
   {
     story:
-      "As an Agency Account Lead, I want to undo my last action, so that a mistaken pause does not sit until someone notices in-platform.",
+      "As an Agency Account Lead, I want to undo my last action, so a mistake never sits unnoticed in a live account.",
     acceptance: [
-      "Given I applied an action in this session, when I choose Undo, then overrides revert and portfolio status recalculates from baseline demo data plus any remaining session changes.",
-      "Given I undo, when the toast clears, then the client row reflects the prior spend or pause state used for status rules.",
+      "Given I applied an action this session, when I click Undo, then the change reverts and the client's status is recalculated.",
     ],
   },
   {
     story:
-      "As a Media Planner, I want to filter the portfolio by status, so that I only work the accounts my lead flagged.",
+      "As a Media Planner, I want to filter the portfolio by status, so I only work on the accounts that need attention.",
     acceptance: [
-      "Given the lead marked two clients Overspend and four Watch, when I filter to Overspend, then only those two rows appear with actions still available.",
-      "Given I clear the filter, when I return to All, then counts in the summary cards match the full book again.",
+      "Given some clients are Overspend, when I filter to Overspend, then only those clients appear, with their actions still available.",
+      "Given I clear the filter, when I return to All, then the summary counts match the full portfolio.",
     ],
   },
 ];
@@ -137,17 +135,22 @@ export const prdRequirements: PrdRequirement[] = [
   {
     feature: "Portfolio table",
     priority: "P0",
-    rule: "One sortable table: client, status, today spend, MTD pacing bar, creative tags. Default sort: Overspend → Watch → Healthy, then name.",
+    rule: "One sortable table: client, status, today spend, MTD pacing bar, creative tags. Default sort: Overspend → Watch → Healthy, then name (see compareClientsByStatus in lib/rules.ts).",
   },
   {
-    feature: "Overspend Guard roll-up",
+    feature: "Client status",
     priority: "P0",
-    rule: "Flag Overspend when today's spend is greater than 4× the peak single-day spend in the trailing 90 days (see overspendThresholdInr / isOverspend in lib/rules.ts).",
+    rule: "Overspend when today's spend is more than 4× the max daily spend over the last 90 days; else Watch when MTD pacing is above 110% or any creative is fatigued; else Healthy (see resolveClientStatus in lib/rules.ts).",
   },
   {
-    feature: "Creative Fatigue roll-up",
+    feature: "Overspend summary",
     priority: "P0",
-    rule: "Flag fatigue when frequency30d > 4 and ctr30d is below 85% of the median ctr30d among sibling creatives on the same client (see isCreativeFatigued in lib/rules.ts). Client enters Watch when fatigued unless already Overspend.",
+    rule: "Count clients where todaySpendInr > 4 × maxDailySpend90dInr (see overspendThresholdInr / isOverspend in lib/rules.ts).",
+  },
+  {
+    feature: "Creative fatigue",
+    priority: "P0",
+    rule: "Flag a creative when frequency30d > 4 and ctr30d is below 85% of the median ctr30d among the client's other creatives — at least 15% below that median (see isCreativeFatigued in lib/rules.ts).",
   },
   {
     feature: "Ask AdsGPT actions",
@@ -157,25 +160,20 @@ export const prdRequirements: PrdRequirement[] = [
   {
     feature: "Undo",
     priority: "P1",
-    rule: "Single-step undo of the last session override; recalculate status using the same overspend and fatigue rules.",
+    rule: "Single-step undo of the last session override; recalculate status using the same overspend, pacing, and fatigue rules in lib/rules.ts.",
   },
 ];
 
 export const prdEdgeCases: PrdEdgeCase[] = [
   {
-    scenario: "New client with no 90-day history",
+    scenario: "New client with partial 90-day history",
     behaviour:
-      "Use available history for max daily spend; if fewer than 7 days, show Watch with tooltip \"Insufficient history — guard uses partial baseline\" and exclude from Overspend Guard count until day 8.",
-  },
-  {
-    scenario: "Planned sale-day spike",
-    behaviour:
-      "Allow a one-day planned spend marker (concept): when set, today's spend is compared against the planned cap instead of the 4× rule for that date only; guard summary notes \"planned spike.\"",
+      "Use the available trailing max daily spend as maxDailySpend90dInr; overspend still applies isOverspend (today's spend more than 4× that max). MTD pacing can still move the client to Watch above 110%.",
   },
   {
     scenario: "Paused campaign",
     behaviour:
-      "Paused entities show zero today spend but remain visible; status derives from account-level roll-up. Actions offer \"Resume\" instead of pause when already paused.",
+      "Paused entities show zero today spend but remain visible; status derives from account-level roll-up via resolveClientStatus. Actions offer \"Resume\" instead of pause when already paused.",
   },
   {
     scenario: "Currency mismatch",
