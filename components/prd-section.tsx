@@ -90,7 +90,7 @@ function PrdCard({
     <FadeIn>
       <article
         id={id}
-        className={`hover-card-secondary scroll-mt-28 rounded-3xl bg-white p-8 ${prdPanelShadow} lg:p-10`}
+        className={`scroll-mt-28 rounded-3xl bg-white p-8 ${prdPanelShadow} lg:p-10`}
       >
         <h3 className="text-h3">{title}</h3>
         <div className="mt-4 space-y-4">{children}</div>
@@ -231,7 +231,7 @@ export function PrdSection() {
                     className={`block rounded-xl px-3 py-2.5 text-[16px] font-medium leading-snug transition-colors ${
                       isActive
                         ? "bg-[#EEEAFE] text-navy"
-                        : "text-fg-muted hover:bg-[#F8F9FD] hover:text-navy"
+                        : "text-fg-muted"
                     }`}
                     aria-current={isActive ? "location" : undefined}
                   >
