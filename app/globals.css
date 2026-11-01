@@ -159,28 +159,7 @@ body {
   margin-inline: calc(50% - 50vw);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .fade-in-up {
-    opacity: 0;
-    transform: translateY(8px);
-    transition:
-      opacity 0.55s ease,
-      transform 0.55s ease;
-    transition-delay: var(--fade-delay, 0ms);
-  }
-
-  .fade-in-up.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .fade-in-up {
-    opacity: 1;
-    transform: none;
-  }
-
   .hero-blob {
     animation: none;
   }
@@ -191,15 +170,11 @@ body {
   .hover-card-primary {
     position: relative;
     border: 1px solid var(--color-line);
-    transition:
-      transform 250ms ease-out,
-      box-shadow 250ms ease-out;
+    transition: all 300ms ease-out;
   }
 
   .hover-card-secondary {
-    transition:
-      transform 250ms ease-out,
-      box-shadow 250ms ease-out;
+    transition: all 300ms ease-out;
   }
 
   .hover-btn-primary {
@@ -277,19 +252,14 @@ body {
 
   @media (prefers-reduced-motion: no-preference) {
     .hover-card-primary:hover,
-    .fade-in-up.is-visible.hover-card-primary:hover {
-      transform: translateY(-4px);
-      border-color: var(--color-line);
+    .hover-card-secondary:hover {
+      transform: translateY(-0.25rem);
       box-shadow: 0 18px 40px -12px rgb(5 5 69 / 0.12);
-      outline: none;
     }
 
-    .hover-card-secondary:hover,
-    .fade-in-up.is-visible.hover-card-secondary:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 2px 4px rgb(16 24 64 / 0.06),
-        0 14px 36px -6px rgb(16 24 64 / 0.12);
+    .hover-card-primary:hover {
+      border-color: var(--color-line);
+      outline: none;
     }
 
     .hover-btn-primary:hover {
@@ -469,4 +439,32 @@ body {
   line-height: 1.5;
   font-weight: 400;
   color: var(--color-text);
+}
+
+@layer components {
+  .hero-dot-grid {
+    background-image: radial-gradient(#050545 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.12;
+  }
+
+  .hero-headline-glow {
+    pointer-events: none;
+    position: absolute;
+    z-index: -10;
+    left: 50%;
+    top: 28%;
+    height: 700px;
+    width: 700px;
+    max-width: min(700px, 92vw);
+    transform: translate(-50%, -50%);
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      rgb(107 91 214 / 0.14) 0%,
+      rgb(238 240 253 / 0.1) 48%,
+      transparent 72%
+    );
+    filter: blur(64px);
+  }
 }

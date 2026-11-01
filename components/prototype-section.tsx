@@ -7,6 +7,7 @@ import {
   type AskAdsGptPanelHandle,
 } from "@/components/ask-adsgpt-panel";
 import { Container } from "@/components/container";
+import { Reveal, RevealGroup } from "@/components/reveal";
 import type { ClientStatus, EnrichedClient } from "@/lib/types";
 import {
   EMPTY_SESSION_OVERRIDES,
@@ -584,13 +585,15 @@ export function PrototypeSection() {
   return (
     <>
     <Container>
-      <header className="mb-14">
-        <p className="text-label">Prototype</p>
-        <h2 className="mt-3 text-h2">Monday morning brief</h2>
-        <p className="mt-3 max-w-2xl text-subline">
-          All 20 client accounts, ranked by what needs you first.
-        </p>
-      </header>
+      <Reveal>
+        <header className="mb-14">
+          <p className="text-label">Prototype</p>
+          <h2 className="mt-3 text-h2">Monday morning brief</h2>
+          <p className="mt-3 max-w-2xl text-subline">
+            All 20 client accounts, ranked by what needs you first.
+          </p>
+        </header>
+      </Reveal>
 
       <div className="min-w-0 rounded-[32px] bg-white p-8 shadow-[0_30px_80px_-30px_rgba(5,5,69,0.18)]">
         <div className="flex items-center gap-2.5">
@@ -601,7 +604,7 @@ export function PrototypeSection() {
           <p className="text-[14px] text-muted">Monday, 2 Nov</p>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <RevealGroup className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <SummaryCard
             label="Total spend this month"
             value={formatInrCompact(summary.totalSpendToDateInr)}
@@ -679,7 +682,7 @@ export function PrototypeSection() {
               </svg>
             }
           />
-        </div>
+        </RevealGroup>
 
         <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div

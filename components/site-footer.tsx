@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Container } from "@/components/container";
-import { FadeIn } from "@/components/fade-in";
+import { Reveal } from "@/components/reveal";
 import { SectionLink } from "@/components/section-link";
 
 const sectionQuickLinks = [
@@ -18,7 +18,7 @@ const rolePostingUrl =
 export function SiteFooter() {
   return (
     <footer className="section-full-bleed relative -mt-8 overflow-hidden rounded-t-[32px] bg-[#050545] pt-24 pb-10 text-white">
-      <FadeIn>
+      <Reveal>
         <Container>
           <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
             <div className="max-w-xl">
@@ -96,7 +96,7 @@ export function SiteFooter() {
             </div>
           </div>
         </Container>
-      </FadeIn>
+      </Reveal>
     </footer>
   );
 }

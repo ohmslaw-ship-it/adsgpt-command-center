@@ -1,7 +1,7 @@
 "use client";
 
 import { Container } from "@/components/container";
-import { FadeIn, FadeInGroup } from "@/components/fade-in";
+import { Reveal, RevealGroup } from "@/components/reveal";
 import {
   metricsFootnote,
   metricsMeta,
@@ -91,15 +91,15 @@ function SupportingMetricIcon({ icon }: { icon: MetricsSupportingMetric["icon"] 
 export function MetricsSection() {
   return (
     <Container>
-      <FadeIn>
+      <Reveal>
         <header className="mb-14 max-w-[820px]">
           <p className="text-label">{metricsMeta.label}</p>
           <h2 className="mt-3 text-h2">{metricsMeta.title}</h2>
           <p className="mt-3 text-subline">{metricsMeta.subtitle}</p>
         </header>
-      </FadeIn>
+      </Reveal>
 
-      <FadeIn className="mb-8">
+      <Reveal className="mb-8">
         <article
           className={`hover-card-primary rounded-3xl bg-white p-10 ${panelShadow}`}
         >
@@ -159,9 +159,9 @@ export function MetricsSection() {
             </div>
           </div>
         </article>
-      </FadeIn>
+      </Reveal>
 
-      <FadeInGroup className="mb-12 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <RevealGroup className="mb-12 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {metricsSupporting.map((metric) => (
           <div
             key={metric.name}
@@ -178,10 +178,10 @@ export function MetricsSection() {
             <p className="mt-auto pt-2 text-muted">{metric.definition}</p>
           </div>
         ))}
-      </FadeInGroup>
+      </RevealGroup>
 
-      <FadeIn>
-        <div className="hover-card-secondary surface-panel bg-white sm:p-10 lg:p-12">
+      <Reveal>
+        <div className="hover-card-secondary overflow-hidden rounded-3xl bg-white sm:p-10 lg:p-12">
           <h3 className="text-h3">{metricsTestStrip.heading}</h3>
           <ol className="relative mt-10 grid gap-10 md:grid-cols-3 md:gap-6">
             <div
@@ -209,13 +209,13 @@ export function MetricsSection() {
             ))}
           </ol>
         </div>
-      </FadeIn>
+      </Reveal>
 
-      <FadeIn>
+      <Reveal>
         <p className="mt-8 text-center text-[14px] leading-relaxed text-fg-muted">
           {metricsFootnote}
         </p>
-      </FadeIn>
+      </Reveal>
     </Container>
   );
 }

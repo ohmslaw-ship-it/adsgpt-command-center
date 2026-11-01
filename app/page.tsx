@@ -1,5 +1,5 @@
 import { Container } from "@/components/container";
-import { FadeIn, FadeInGroup } from "@/components/fade-in";
+import { Reveal, RevealGroup } from "@/components/reveal";
 import { HeroBackground } from "@/components/hero-background";
 import { MetricsSection } from "@/components/metrics-section";
 import { PrdSection } from "@/components/prd-section";
@@ -12,7 +12,7 @@ import { SiteHeader } from "@/components/site-header";
 const problemStats = [
   {
     value: "20",
-    line: "Client accounts to check before the first stand-up",
+    line: "Client accounts to check before stand-up",
     iconColor: "text-lavender-dark",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden>
@@ -122,14 +122,16 @@ export default function Home() {
         <section className="section-full-bleed relative -mt-[72px] flex min-h-[100svh] flex-col overflow-hidden pt-[72px]">
           <HeroBackground />
 
-          <Container className="relative -mt-8 flex flex-1 flex-col items-center justify-center pb-28 pt-8 text-center lg:pb-32">
-            <FadeIn className="flex w-full flex-col items-center">
+          <Container className="relative z-10 -mt-8 flex flex-1 flex-col items-center justify-center pb-28 pt-8 text-center lg:pb-32">
+            <Reveal className="flex w-full flex-col items-center">
               <p className="mb-8 inline-flex items-center rounded-full border border-line bg-white px-4 py-1.5 text-[14px] font-semibold text-muted shadow-[0_0_24px_rgba(184,169,254,0.45)]">
                 Concept · Not affiliated with Venxr
               </p>
-            </FadeIn>
+            </Reveal>
 
-            <FadeIn className="w-full max-w-[880px]">
+            <div className="relative w-full max-w-[880px]">
+              <div className="hero-headline-glow" aria-hidden />
+              <Reveal className="w-full">
               <h1 className="text-[44px] font-bold leading-[1.05] tracking-[-0.025em] text-navy text-hero-glow lg:text-[68px]">
                 Every client. Every rupee.
                 <br />
@@ -147,13 +149,14 @@ export default function Home() {
                   Read the PRD
                 </HeroButton>
               </div>
-            </FadeIn>
+              </Reveal>
+            </div>
 
-            <FadeIn className="mt-16 flex w-full flex-col items-center">
+            <Reveal className="mt-16 flex w-full flex-col items-center">
               <p className="text-label-muted">
                 Unofficial PM case study · Om Raje
               </p>
-            </FadeIn>
+            </Reveal>
           </Container>
         </section>
 
@@ -162,19 +165,19 @@ export default function Home() {
           className="scroll-mt-20 section-full-bleed bg-white py-20 lg:py-28"
         >
           <Container>
-            <FadeIn className="mb-14">
+            <Reveal className="mb-14">
               <h2 className="text-h2">The problem</h2>
               <p className="mt-3 max-w-2xl text-subline">
                 Agency leads stitch together platform tabs, pacing sheets, and
                 Slack threads — then still walk into client stand-ups blind.
               </p>
-            </FadeIn>
+            </Reveal>
 
-            <FadeInGroup className="grid gap-6 sm:grid-cols-3">
+            <RevealGroup className="grid w-full items-stretch gap-6 self-start sm:grid-cols-3">
               {problemStats.map((stat) => (
                 <div
                   key={stat.value}
-                  className="hover-card-primary rounded-3xl bg-[#F3F4FE] p-10"
+                  className="hover-card-primary flex h-full flex-col rounded-3xl bg-[#F3F4FE] p-10"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white shadow-[0_1px_2px_rgba(16,24,64,0.06)]">
                     <span className={stat.iconColor}>{stat.icon}</span>
@@ -187,16 +190,22 @@ export default function Home() {
                   <p className="mt-4 text-body">{stat.line}</p>
                 </div>
               ))}
-            </FadeInGroup>
+            </RevealGroup>
           </Container>
         </section>
 
         <section
           id="prototype"
-          className="scroll-mt-20 section-full-bleed section-lavender-band py-20 lg:py-28"
+          className="scroll-mt-20 section-full-bleed relative overflow-hidden section-lavender-band py-20 lg:py-28"
           aria-label="Monday morning brief prototype"
         >
-          <PrototypeSection />
+          <div
+            className="pointer-events-none absolute left-1/2 top-[58%] z-0 h-[min(480px,52vw)] w-[800px] max-w-[94vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#6B5BD6]/20 blur-[120px]"
+            aria-hidden
+          />
+          <div className="relative z-10">
+            <PrototypeSection />
+          </div>
         </section>
 
         <section

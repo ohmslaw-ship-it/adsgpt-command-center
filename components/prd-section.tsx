@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/container";
-import { FadeIn } from "@/components/fade-in";
+import { Reveal } from "@/components/reveal";
 import {
   prdEdgeCases,
   prdGoals,
@@ -122,7 +122,7 @@ function PrdCard({
   children: React.ReactNode;
 }) {
   return (
-    <FadeIn>
+    <Reveal>
       <article
         id={id}
         className={`scroll-mt-28 rounded-3xl bg-white p-8 ${prdPanelShadow} lg:p-10`}
@@ -130,7 +130,7 @@ function PrdCard({
         <h3 className="text-h3">{title}</h3>
         <div className="mt-4 space-y-4">{children}</div>
       </article>
-    </FadeIn>
+    </Reveal>
   );
 }
 
@@ -199,13 +199,13 @@ export function PrdSection() {
 
   return (
     <Container>
-      <FadeIn>
+      <Reveal>
         <header className="mb-14 max-w-[820px]">
           <p className="text-label">{prdMeta.label}</p>
           <h2 className="mt-3 text-h2">{prdMeta.title}</h2>
           <p className="mt-3 text-subline">{prdMeta.subtitle}</p>
         </header>
-      </FadeIn>
+      </Reveal>
 
       <div className="mx-auto grid w-full max-w-[1108px] grid-cols-1 gap-12 lg:grid-cols-[260px_minmax(0,820px)] lg:gap-16">
         <nav
