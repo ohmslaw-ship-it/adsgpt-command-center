@@ -20,9 +20,9 @@ export const metricsMeta = {
 
 export const metricsNorthStar = {
   label: "NORTH STAR",
-  title: "Monday review prep time per account manager",
+  title: "Monday review prep time per account lead",
   rationale:
-    "If prep time drops without missed breaches, the brief is earning its place in the Monday routine — not adding another tab to ignore.",
+    "If prep time drops without missed overspends, the brief is earning its place in the Monday routine — not adding another tab to ignore.",
   baseline: "3h",
   target: "20m",
   targetCaption: "target",
@@ -32,7 +32,7 @@ export const metricsSupporting: MetricsSupportingMetric[] = [
   {
     name: "Overspend caught the same day",
     target: "≥ 95%",
-    definition: "Breaches flagged before the day ends.",
+    definition: "Overspends flagged before the day ends.",
     icon: "overspend",
   },
   {
@@ -44,11 +44,11 @@ export const metricsSupporting: MetricsSupportingMetric[] = [
   {
     name: "False alarm rate",
     target: "≤ 10%",
-    definition: "Flags the account manager dismisses as wrong.",
+    definition: "Flags the account lead dismisses as wrong.",
     icon: "false-alarm",
   },
   {
-    name: "Weekly active account managers",
+    name: "Weekly active account leads",
     target: "80%",
     definition: "Team members who open the brief every week.",
     icon: "weekly-active",
@@ -62,7 +62,7 @@ export const metricsTestStrip = {
       step: 1,
       title: "Pilot",
       lines: [
-        "5 account managers and 40 clients for 2 weeks,",
+        "5 account leads and 40 clients for 2 weeks,",
         "compared with manual prep.",
       ],
     },
@@ -78,7 +78,7 @@ export const metricsTestStrip = {
       step: 3,
       title: "Rollout",
       lines: [
-        "Expand when the north star and false alarm targets",
+        "Expand when the North Star and false alarm targets",
         "hold for 2 straight weeks.",
       ],
     },
