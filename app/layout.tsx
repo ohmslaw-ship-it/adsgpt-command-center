@@ -15,6 +15,7 @@ const siteDescription =
   "A portfolio command center concept for agency leads: prototype, PRD and success metrics. Unofficial concept, not affiliated with Venxr.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://adsgpt-command-center.vercel.app"),
   title: siteTitle,
   description: siteDescription,
   openGraph: {
