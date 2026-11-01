@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/container";
 import { FadeIn, FadeInGroup } from "@/components/fade-in";
+import { HeroBackground } from "@/components/hero-background";
 import { PrdSection } from "@/components/prd-section";
 import { PrototypeSection } from "@/components/prototype-section";
 import { SectionLink } from "@/components/section-link";
@@ -76,17 +77,10 @@ export default function Home() {
       </header>
 
       <main className="flex-1">
-        <section className="relative overflow-hidden bg-linear-to-b from-hero-wash to-white">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-lavender opacity-40 blur-3xl"
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -right-16 top-32 h-80 w-80 rounded-full bg-coral opacity-40 blur-3xl"
-          />
+        <section className="relative -mt-16 flex min-h-[100svh] flex-col overflow-hidden pt-16">
+          <HeroBackground />
 
-          <Container className="relative pb-24 pt-16 lg:pb-28 lg:pt-20">
+          <Container className="relative flex flex-1 flex-col justify-center pb-28 pt-8 lg:pb-32">
             <FadeIn>
               <p className="mb-8 inline-flex items-center rounded-full border border-line bg-white px-4 py-1.5 text-label-muted shadow-[0_0_24px_rgba(184,169,254,0.45)]">
                 Concept · Not affiliated with Venxr
@@ -94,7 +88,7 @@ export default function Home() {
             </FadeIn>
 
             <FadeIn className="max-w-3xl">
-              <h1 className="text-hero">
+              <h1 className="text-hero text-hero-glow">
                 Every client. Every rupee.
                 <br />
                 One morning brief.
