@@ -5,6 +5,7 @@ import { MetricsSection } from "@/components/metrics-section";
 import { PrdSection } from "@/components/prd-section";
 import { PrototypeSection } from "@/components/prototype-section";
 import { SectionLink } from "@/components/section-link";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 /* Illustrative stats for the case-study narrative — not live data */
@@ -216,11 +217,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="section-full-bleed border-t border-line py-10">
-        <Container className="text-center text-muted">
-          AdsGPT Command Center — concept by Om Raje. Not affiliated with Venxr.
-        </Container>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
