@@ -10,10 +10,23 @@ const plusJakarta = Plus_Jakarta_Sans({
   style: ["normal", "italic"],
 });
 
+const siteTitle = "AdsGPT Command Center · Concept by Om Raje";
+const siteDescription =
+  "A portfolio command center concept for agency leads: prototype, PRD and success metrics. Unofficial concept, not affiliated with Venxr.";
+
 export const metadata: Metadata = {
-  title: "AdsGPT Command Center — a concept by Om Raje",
-  description:
-    "A portfolio command center for agency leads running 20+ ad accounts — an unofficial PM case study for Venxr AdsGPT.",
+  title: siteTitle,
+  description: siteDescription,
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
