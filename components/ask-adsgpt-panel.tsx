@@ -177,7 +177,7 @@ export function AskAdsGptPanel({
               key={chip}
               type="button"
               onClick={() => dispatchMessage(chip)}
-              className="shrink-0 rounded-full border border-line bg-bg-alt px-4 py-2.5 text-left text-[15px] font-medium normal-case tracking-normal whitespace-nowrap text-navy transition-colors hover:border-lavender hover:bg-white"
+              className="hover-chip-border shrink-0 rounded-full border border-line bg-bg-alt px-4 py-2.5 text-left text-[15px] font-medium normal-case tracking-normal whitespace-nowrap text-navy"
             >
               {chip}
             </button>
@@ -268,7 +268,7 @@ export function AskAdsGptPanel({
           <button
             type="submit"
             disabled={!input.trim() || typing}
-            className="shrink-0 rounded-full bg-ink px-5 py-2 text-[16px] font-semibold text-white transition-colors hover:bg-navy disabled:cursor-not-allowed disabled:opacity-40"
+            className="hover-chip-border shrink-0 rounded-full bg-ink px-5 py-2 text-[16px] font-semibold text-white transition-colors hover:bg-navy disabled:cursor-not-allowed disabled:opacity-40"
           >
             Send
           </button>

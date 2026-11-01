@@ -186,6 +186,214 @@ body {
   }
 }
 
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes border-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* Restrained hover interactions (motion-heavy parts off under prefers-reduced-motion) */
+@layer components {
+  .hover-card-primary {
+    position: relative;
+    isolation: isolate;
+    border: 1px solid var(--color-line);
+    transition:
+      transform 250ms ease-out,
+      box-shadow 250ms ease-out,
+      border-color 300ms ease-out;
+  }
+
+  .hover-card-primary::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    --angle: 0deg;
+    background: conic-gradient(
+      from var(--angle),
+      #ff7d85,
+      #b8a9fe,
+      #fec530,
+      #ff7d85
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 300ms ease-out;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hover-card-secondary {
+    transition:
+      transform 250ms ease-out,
+      box-shadow 250ms ease-out;
+  }
+
+  .hover-btn-primary {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+      background-color 250ms ease-out,
+      box-shadow 250ms ease-out;
+  }
+
+  .hover-btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 38%,
+      rgb(255 255 255 / 0.25) 50%,
+      transparent 62%
+    );
+    transform: translateX(-120%);
+    pointer-events: none;
+  }
+
+  .hover-table-row {
+    cursor: pointer;
+    transition:
+      background-color 250ms ease-out,
+      box-shadow 250ms ease-out;
+  }
+
+  .hover-chip-border {
+    position: relative;
+    isolation: isolate;
+    transition: color 250ms ease-out;
+  }
+
+  .hover-chip-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from 0deg,
+      #ff7d85,
+      #b8a9fe,
+      #fec530,
+      #ff7d85
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 250ms ease-out;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hover-footer-pill-solid {
+    transition: opacity 250ms ease-out;
+  }
+
+  .hover-footer-pill-outline {
+    transition:
+      background-color 250ms ease-out,
+      border-color 250ms ease-out;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hover-card-primary:hover,
+    .fade-in-up.is-visible.hover-card-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgb(5 5 69 / 0.08);
+      border-color: transparent;
+    }
+
+    .hover-card-primary:hover::before {
+      opacity: 1;
+      animation: border-spin 3s linear infinite;
+    }
+
+    .hover-card-secondary:hover,
+    .fade-in-up.is-visible.hover-card-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 2px 4px rgb(16 24 64 / 0.06),
+        0 14px 36px -6px rgb(16 24 64 / 0.12);
+    }
+
+    .hover-btn-primary:hover {
+      box-shadow: 0 8px 24px rgb(184 169 254 / 0.45);
+    }
+
+    .hover-btn-primary:hover::after {
+      animation: hover-btn-shimmer 700ms ease-out forwards;
+    }
+
+    .hover-table-row:hover {
+      background-color: #f6f7fe;
+      box-shadow: inset 3px 0 0 0 #6b5bd6;
+    }
+
+    .hover-chip-border:hover {
+      color: var(--color-navy);
+    }
+
+    .hover-chip-border:hover::before {
+      opacity: 1;
+    }
+
+    .hover-footer-pill-solid:hover {
+      opacity: 0.82;
+    }
+
+    .hover-footer-pill-outline:hover {
+      background-color: rgb(255 255 255 / 0.1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hover-card-primary,
+    .hover-card-secondary,
+    .hover-btn-primary,
+    .hover-table-row,
+    .hover-chip-border,
+    .hover-footer-pill-solid,
+    .hover-footer-pill-outline {
+      transition: none;
+    }
+
+    .hover-card-primary::before,
+    .hover-btn-primary::after,
+    .hover-chip-border::before {
+      animation: none;
+      opacity: 0;
+    }
+  }
+}
+
+@keyframes hover-btn-shimmer {
+  to {
+    transform: translateX(120%);
+  }
+}
+
 @keyframes hero-drift-lavender {
   0%,
   100% {

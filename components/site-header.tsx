@@ -23,7 +23,7 @@ function NavPillButton({
   return (
     <SectionLink
       sectionId={sectionId}
-      className="inline-flex h-11 items-center justify-center rounded-full bg-ink px-6 text-[16px] font-semibold text-white transition-colors hover:bg-navy"
+      className="hover-btn-primary inline-flex h-11 items-center justify-center rounded-full bg-ink px-6 text-[16px] font-semibold text-white transition-colors hover:bg-navy"
     >
       {children}
     </SectionLink>

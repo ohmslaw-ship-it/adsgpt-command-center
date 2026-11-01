@@ -101,15 +101,10 @@ export function MetricsSection() {
       </FadeIn>
 
       <FadeIn className="mb-8">
-        <div
-          className="rounded-3xl p-px"
-          style={{
-            background:
-              "radial-gradient(100% 107% at 0% 50%, rgba(255,125,133,0.28) 0%, rgba(184,169,254,0.28) 50%, rgba(254,197,48,0.28) 100%)",
-          }}
+        <article
+          className={`hover-card-primary rounded-3xl bg-white p-10 ${panelShadow}`}
         >
-          <article className={`rounded-[calc(1.5rem-1px)] bg-white p-10 ${panelShadow}`}>
-            <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
               <div className="min-w-0 max-w-xl">
                 <p className="text-label">{metricsNorthStar.label}</p>
                 <h3 className="mt-3 text-h3">{metricsNorthStar.title}</h3>
@@ -162,17 +157,16 @@ export function MetricsSection() {
                   className="absolute right-0 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-white bg-lavender-dark shadow-sm"
                   aria-hidden
                 />
-              </div>
             </div>
-          </article>
-        </div>
+          </div>
+        </article>
       </FadeIn>
 
       <FadeInGroup className="mb-12 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {metricsSupporting.map((metric) => (
           <div
             key={metric.name}
-            className="flex h-full flex-col rounded-3xl bg-[#F3F4FE] p-8"
+            className="hover-card-secondary flex h-full flex-col rounded-3xl bg-[#F3F4FE] p-8"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-lavender-dark shadow-[0_1px_2px_rgba(16,24,64,0.06)]">
               <SupportingMetricIcon icon={metric.icon} />
@@ -188,7 +182,7 @@ export function MetricsSection() {
       </FadeInGroup>
 
       <FadeIn>
-        <div className="rounded-3xl bg-white p-8 sm:p-10 lg:p-12">
+        <div className="hover-card-secondary rounded-3xl bg-white p-8 sm:p-10 lg:p-12">
           <h3 className="text-h3">{metricsTestStrip.heading}</h3>
           <ol className="relative mt-10 grid gap-10 md:grid-cols-3 md:gap-6">
             <div

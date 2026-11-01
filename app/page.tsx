@@ -103,7 +103,7 @@ function HeroButton({
     "inline-flex h-12 items-center justify-center rounded-full px-7 text-[16px] font-semibold transition-colors";
   const styles =
     variant === "solid"
-      ? "bg-ink text-white hover:bg-navy"
+      ? "hover-btn-primary bg-ink text-white hover:bg-navy"
       : "border border-line bg-white text-body hover:border-muted/40";
 
   return (
@@ -174,7 +174,7 @@ export default function Home() {
               {problemStats.map((stat) => (
                 <div
                   key={stat.value}
-                  className="rounded-3xl bg-[#F3F4FE] p-10"
+                  className="hover-card-primary rounded-3xl bg-[#F3F4FE] p-10"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white shadow-[0_1px_2px_rgba(16,24,64,0.06)]">
                     <span className={stat.iconColor}>{stat.icon}</span>

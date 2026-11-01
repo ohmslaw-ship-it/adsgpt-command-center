@@ -37,7 +37,7 @@ export function SiteFooter() {
               <div className="mt-4 flex flex-wrap gap-3 lg:justify-end">
                 <Link
                   href="mailto:notomraje@gmail.com"
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-[16px] font-semibold text-[#050545] transition-opacity hover:opacity-90"
+                  className="hover-footer-pill-solid inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-[16px] font-semibold text-[#050545]"
                 >
                   Email me
                 </Link>
@@ -45,7 +45,7 @@ export function SiteFooter() {
                   href="https://www.linkedin.com/in/om-raje-a06103286"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-white/30 px-6 text-[16px] font-semibold text-white transition-colors hover:border-white/50 hover:bg-white/5"
+                  className="hover-footer-pill-outline inline-flex h-12 items-center justify-center rounded-full border border-white/30 px-6 text-[16px] font-semibold text-white"
                 >
                   LinkedIn
                 </Link>

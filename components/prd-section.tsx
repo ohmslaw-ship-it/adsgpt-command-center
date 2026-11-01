@@ -90,7 +90,7 @@ function PrdCard({
     <FadeIn>
       <article
         id={id}
-        className={`scroll-mt-28 rounded-3xl bg-white p-8 ${prdPanelShadow} lg:p-10`}
+        className={`hover-card-secondary scroll-mt-28 rounded-3xl bg-white p-8 ${prdPanelShadow} lg:p-10`}
       >
         <h3 className="text-h3">{title}</h3>
         <div className="mt-4 space-y-4">{children}</div>

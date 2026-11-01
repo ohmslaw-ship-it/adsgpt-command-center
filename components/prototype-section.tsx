@@ -67,7 +67,7 @@ function SummaryCard({
   iconTint?: string;
 }) {
   return (
-    <div className="flex min-h-[150px] flex-col rounded-card bg-white p-8 shadow-panel-depth">
+    <div className="hover-card-primary flex min-h-[150px] flex-col rounded-card bg-white p-8 shadow-panel-depth">
       <div
         className={`flex h-10 w-10 items-center justify-center rounded-xl ${iconTint}`}
       >
@@ -472,7 +472,7 @@ export function PrototypeSection() {
                 return (
                   <tr
                     key={client.id}
-                    className="cursor-pointer border-b border-line transition-[background-color,box-shadow] last:border-0 hover:bg-[#F3F4FE]/70 hover:[box-shadow:inset_3px_0_0_0_#B8A9FE]"
+                    className="hover-table-row border-b border-line last:border-0"
                     onClick={() => setSelectedId(client.id)}
                   >
                     <td className="py-5 pr-4 align-middle font-medium text-navy">
