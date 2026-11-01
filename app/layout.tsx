@@ -18,7 +18,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${plusJakarta.variable} h-full`}>
+    <html
+      lang="en"
+      className={`${plusJakarta.variable} h-full overflow-x-clip`}
+    >
       <body className="min-h-full flex flex-col overflow-x-clip bg-[#EEF0FD] font-sans text-body antialiased">
         <ScrollToTop />
         {children}

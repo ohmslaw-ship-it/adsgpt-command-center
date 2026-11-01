@@ -23,7 +23,7 @@ function NavPillButton({
   return (
     <SectionLink
       sectionId={sectionId}
-      className="hover-btn-primary inline-flex h-11 items-center justify-center rounded-full bg-ink px-6 text-[16px] font-semibold text-white transition-colors hover:bg-navy"
+      className="hover-btn-primary inline-flex h-9 shrink-0 items-center justify-center rounded-full bg-ink px-4 text-sm font-semibold text-white transition-colors hover:bg-navy lg:h-11 lg:px-6 lg:text-[16px]"
     >
       {children}
     </SectionLink>
@@ -113,15 +113,16 @@ export function SiteHeader() {
         scrolled ? "bg-white/90 backdrop-blur-md" : "bg-white"
       }`}
     >
-      <div className="mx-auto flex h-[72px] w-full max-w-[1440px] items-center gap-6 px-6 md:px-8 lg:px-10">
+      <div className="mx-auto flex h-[72px] w-full min-w-0 max-w-[1440px] items-center gap-3 overflow-hidden px-6 md:px-8 lg:gap-6 lg:px-10">
         <Link
           href="/"
-          className="shrink-0 text-[20px] font-bold text-navy"
+          className="min-w-0 shrink truncate text-[20px] font-bold text-navy"
         >
-          AdsGPT Command Center
+          <span className="max-[400px]:hidden">AdsGPT Command Center</span>
+          <span className="hidden max-[400px]:inline">AdsGPT</span>
         </Link>
         <nav
-          className="hidden flex-1 justify-center gap-9 md:flex"
+          className="hidden flex-1 justify-center gap-9 lg:flex"
           aria-label="Primary"
         >
           {navLinks.map((link) => {

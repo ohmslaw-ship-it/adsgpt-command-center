@@ -186,7 +186,7 @@ export function MetricsSection() {
       </RevealGroup>
 
       <Reveal>
-        <div className="hover-card-secondary overflow-hidden rounded-3xl bg-white sm:p-10 lg:p-12">
+        <div className="hover-card-secondary overflow-hidden rounded-3xl bg-white p-6 sm:p-10 lg:p-12">
           <h3 className="text-h3">{metricsTestStrip.heading}</h3>
           <ol className="relative mt-10 grid gap-10 md:grid-cols-3 md:gap-6">
             <div
@@ -198,18 +198,18 @@ export function MetricsSection() {
                 key={step.step}
                 className="relative z-[1] flex flex-col items-start md:items-center md:text-center"
               >
-                <span
-                  className="relative z-[1] flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEEAFE] text-[16px] font-bold tabular-nums text-lavender-dark ring-4 ring-white"
-                  aria-hidden
-                >
-                  {step.step}
-                </span>
-                <p className="mt-4 text-[18px] font-semibold text-navy">{step.title}</p>
-                <p className="mt-2 text-body">
-                  {step.lines[0]}
-                  <br />
-                  {step.lines[1]}
-                </p>
+                <div className="flex items-center gap-3 md:flex-col md:items-center">
+                  <span
+                    className="relative z-[1] flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEEAFE] text-[16px] font-bold tabular-nums text-lavender-dark ring-4 ring-white"
+                    aria-hidden
+                  >
+                    {step.step}
+                  </span>
+                  <p className="text-[18px] font-semibold text-navy md:mt-4">
+                    {step.title}
+                  </p>
+                </div>
+                <p className="mt-2 text-body">{step.description}</p>
               </li>
             ))}
           </ol>

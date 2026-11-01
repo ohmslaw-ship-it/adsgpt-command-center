@@ -399,6 +399,85 @@ function ClientRowDetail({
   );
 }
 
+function ClientPacingBar({
+  client,
+  className = "",
+}: {
+  client: EnrichedClient;
+  className?: string;
+}) {
+  const barOverPacing = client.pacingPercent > 100;
+  const barWidth = Math.min(client.pacingPercent, 100);
+  const barColor = pacingBarColor(client.status, barOverPacing);
+
+  return (
+    <div
+      className={`overflow-hidden rounded-full bg-[#EEF0F8] ${className}`}
+      aria-hidden
+    >
+      <div
+        className={`h-full rounded-full ${barColor}`}
+        style={{ width: `${barWidth}%` }}
+      />
+    </div>
+  );
+}
+
+function MobileClientCard({
+  client,
+  isOpen,
+  onToggle,
+  onAskAbout,
+}: {
+  client: EnrichedClient;
+  isOpen: boolean;
+  onToggle: () => void;
+  onAskAbout: (client: EnrichedClient) => void;
+}) {
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={`client-expanded-${client.id}`}
+        className="hover-table-row w-full rounded-2xl border border-[#EEF0F8] p-4 text-left"
+      >
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex min-w-0 flex-1 items-center gap-3">
+            <ClientAvatar name={client.name} status={client.status} />
+            <p className="min-w-0 truncate font-semibold text-navy">
+              {client.name}
+            </p>
+          </div>
+          <StatusPill status={client.status} />
+        </div>
+        <p className="mt-2 text-[13px] text-muted">
+          <span className="tabular-nums">
+            Today {formatInrTable(client.todaySpendInr)}
+          </span>
+          {" · "}
+          <span className="tabular-nums">
+            Pacing {formatPercent(client.pacingPercent, 0)}
+          </span>
+        </p>
+        <ClientPacingBar client={client} className="mt-2 h-1.5" />
+      </button>
+      <div
+        id={`client-expanded-${client.id}`}
+        className="client-row-detail-shell min-h-0"
+        data-state={isOpen ? "open" : "closed"}
+      >
+        <div className="min-h-0 overflow-hidden">
+          {isOpen ? (
+            <ClientRowDetail client={client} onAskAbout={onAskAbout} />
+          ) : null}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function RowChevron({ open }: { open: boolean }) {
   return (
     <svg
@@ -728,7 +807,7 @@ export function PrototypeSection() {
 
         <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div
-            className="inline-flex max-w-full flex-wrap rounded-full bg-[#F1F3FF] p-1"
+            className="inline-flex max-w-full flex-nowrap overflow-x-auto rounded-full bg-[#F1F3FF] p-1 [scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:flex-wrap md:overflow-x-visible"
             role="group"
             aria-label="Filter by status"
           >
@@ -739,7 +818,7 @@ export function PrototypeSection() {
                   key={filter}
                   type="button"
                   onClick={() => setStatusFilter(filter)}
-                  className={`rounded-full px-4 py-2 text-[13px] font-semibold motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out ${
+                  className={`shrink-0 rounded-full px-4 py-2 text-[13px] font-semibold motion-safe:transition-all motion-safe:duration-200 motion-safe:ease-out ${
                     active
                       ? "bg-white text-navy shadow-[0_4px_14px_-4px_rgba(5,5,69,0.18)]"
                       : "text-muted hover:text-navy"
@@ -775,7 +854,24 @@ export function PrototypeSection() {
               </p>
             </TableSwapFade>
           ) : (
-            <table className="w-full table-fixed border-collapse text-left text-[16px]">
+            <>
+              <TableSwapFade
+                swapKey={tableSwapKey}
+                as="div"
+                className="flex flex-col gap-3 md:hidden"
+                key={`mobile-${tableSwapKey}`}
+              >
+                {filtered.map((client) => (
+                  <MobileClientCard
+                    key={client.id}
+                    client={client}
+                    isOpen={expandedId === client.id}
+                    onToggle={() => toggleExpanded(client.id)}
+                    onAskAbout={handleAskAboutClient}
+                  />
+                ))}
+              </TableSwapFade>
+            <table className="hidden w-full table-fixed border-collapse text-left text-[16px] md:table">
               <thead className="sticky top-0 z-10 bg-white">
                 <tr className="border-b border-[#F0F1F8] text-[12px] font-semibold uppercase tracking-[0.06em] text-muted">
                   <th className="w-[26%] bg-white px-5 pb-4 align-bottom font-semibold">
@@ -808,9 +904,6 @@ export function PrototypeSection() {
               <TableSwapFade swapKey={tableSwapKey} key={tableSwapKey}>
               {filtered.map((client) => {
                 const isOpen = expandedId === client.id;
-                const barOverPacing = client.pacingPercent > 100;
-                const barWidth = Math.min(client.pacingPercent, 100);
-                const barColor = pacingBarColor(client.status, barOverPacing);
 
                 return (
                   <Fragment key={client.id}>
@@ -851,15 +944,10 @@ export function PrototypeSection() {
                       </td>
                       <td className="h-[72px] max-w-0 px-5 py-0 align-middle">
                         <div className="flex min-w-0 items-center gap-2">
-                          <div
-                            className="h-1.5 min-w-0 flex-1 overflow-hidden rounded-full bg-[#EEF0F8]"
-                            aria-hidden
-                          >
-                            <div
-                              className={`h-full rounded-full ${barColor}`}
-                              style={{ width: `${barWidth}%` }}
-                            />
-                          </div>
+                          <ClientPacingBar
+                            client={client}
+                            className="h-1.5 min-w-0 flex-1"
+                          />
                           <span className="shrink-0 text-[13px] tabular-nums text-muted">
                             {formatPercent(client.pacingPercent, 0)}
                           </span>
@@ -905,6 +993,7 @@ export function PrototypeSection() {
               })}
               </TableSwapFade>
             </table>
+            </>
           )}
         </div>
       </div>

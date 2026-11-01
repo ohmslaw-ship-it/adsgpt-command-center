@@ -8,7 +8,7 @@ export type MetricsSupportingMetric = {
 export type MetricsTestStep = {
   step: number;
   title: string;
-  lines: [string, string];
+  description: string;
 };
 
 export const metricsMeta = {
@@ -61,26 +61,20 @@ export const metricsTestStrip = {
     {
       step: 1,
       title: "Pilot",
-      lines: [
-        "5 account leads and 40 clients for 2 weeks,",
-        "compared with manual prep.",
-      ],
+      description:
+        "5 account leads and 40 clients for 2 weeks, compared with manual prep.",
     },
     {
       step: 2,
       title: "Guardrails",
-      lines: [
-        "No auto-applied budget changes, and every action",
-        "logged and reversible.",
-      ],
+      description:
+        "No auto-applied budget changes, and every action logged and reversible.",
     },
     {
       step: 3,
       title: "Rollout",
-      lines: [
-        "Expand when the North Star and false alarm targets",
-        "hold for 2 straight weeks.",
-      ],
+      description:
+        "Expand when the North Star and false alarm targets hold for 2 straight weeks.",
     },
   ] satisfies MetricsTestStep[],
 };

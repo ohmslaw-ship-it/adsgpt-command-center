@@ -100,7 +100,7 @@ function HeroButton({
   children: React.ReactNode;
 }) {
   const base =
-    "inline-flex h-12 items-center justify-center rounded-full px-7 text-[16px] font-semibold transition-colors";
+    "inline-flex h-12 w-full items-center justify-center rounded-full px-7 text-[16px] font-semibold transition-colors lg:w-auto";
   const styles =
     variant === "solid"
       ? "hover-btn-primary bg-ink text-white hover:bg-navy"
@@ -119,7 +119,7 @@ export default function Home() {
       <SiteHeader />
 
       <main className="w-full min-w-0 flex-1">
-        <section className="section-full-bleed relative -mt-[72px] flex min-h-[100svh] flex-col overflow-hidden pt-[72px]">
+        <section className="section-full-bleed relative -mt-[72px] flex min-h-[70vh] flex-col overflow-hidden pt-[72px] lg:min-h-[100svh]">
           <HeroBackground />
 
           <Container className="relative z-10 -mt-8 flex flex-1 flex-col items-center justify-center pb-28 pt-8 text-center lg:pb-32">
@@ -141,7 +141,7 @@ export default function Home() {
                 A portfolio command center for agency leads running 20+ ad
                 accounts, built on AdsGPT&apos;s Govern and Analyze pillars.
               </p>
-              <div className="mt-10 flex flex-wrap justify-center gap-4">
+              <div className="mx-auto mt-10 flex w-full max-w-[280px] flex-col items-stretch gap-4 lg:max-w-none lg:flex-row lg:flex-wrap lg:justify-center">
                 <HeroButton sectionId="prototype" variant="solid">
                   Open prototype
                 </HeroButton>
