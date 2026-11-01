@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { AskAdsGptPanel } from "@/components/ask-adsgpt-panel";
+import { Container } from "@/components/container";
 import type { ClientStatus, EnrichedClient } from "@/lib/types";
 import {
   EMPTY_SESSION_OVERRIDES,
@@ -29,7 +30,7 @@ function StatusPill({ status }: { status: ClientStatus }) {
 
   return (
     <span
-      className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold ${styles[status]}`}
+      className={`inline-flex rounded-full px-2.5 py-0.5 text-label ${styles[status]}`}
     >
       {status}
     </span>
@@ -41,8 +42,8 @@ function CreativeTag({ fatigued }: { fatigued: boolean }) {
     <span
       className={
         fatigued
-          ? "rounded-full bg-coral/12 px-2 py-0.5 text-xs font-medium text-coral"
-          : "rounded-full bg-success/12 px-2 py-0.5 text-xs font-medium text-success"
+          ? "rounded-full bg-coral/12 px-2 py-0.5 text-label font-medium text-coral"
+          : "rounded-full bg-success/12 px-2 py-0.5 text-label font-medium text-success"
       }
     >
       {fatigued ? "Fatigued" : "Healthy"}
@@ -61,13 +62,9 @@ function SummaryCard({
 }) {
   return (
     <div className="rounded-card border border-line bg-white p-5 shadow-card">
-      <p className="text-xs font-medium uppercase tracking-wide text-muted">
-        {label}
-      </p>
-      <p className="mt-2 text-2xl font-semibold tabular-nums tracking-tight text-navy">
-        {value}
-      </p>
-      {hint ? <p className="mt-1 text-xs text-muted">{hint}</p> : null}
+      <p className="text-label-muted">{label}</p>
+      <p className="mt-2 text-stat">{value}</p>
+      {hint ? <p className="mt-1 text-label-muted normal-case tracking-normal">{hint}</p> : null}
     </div>
   );
 }
@@ -98,13 +95,8 @@ function ClientDrawer({
       >
         <div className="flex items-start justify-between gap-4 border-b border-line px-6 py-5">
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-lavender">
-              Client detail
-            </p>
-            <h3
-              id="drawer-title"
-              className="mt-1 text-xl font-semibold text-navy"
-            >
+            <p className="text-label">Client detail</p>
+            <h3 id="drawer-title" className="mt-1 text-h3">
               {client.name}
             </h3>
             <div className="mt-2">
@@ -114,7 +106,7 @@ function ClientDrawer({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full border border-line px-3 py-1 text-sm font-medium text-muted transition-colors hover:text-navy"
+            className="rounded-full border border-line px-3 py-1.5 text-nav font-medium text-fg-muted transition-colors hover:text-navy"
           >
             Close
           </button>
@@ -123,21 +115,21 @@ function ClientDrawer({
         <div className="flex-1 overflow-y-auto px-6 py-5">
           <dl className="grid gap-4 sm:grid-cols-2">
             <div>
-              <dt className="text-xs text-muted">Monthly budget</dt>
-              <dd className="mt-1 text-sm font-semibold tabular-nums text-navy">
+              <dt className="text-label-muted normal-case tracking-normal">Monthly budget</dt>
+              <dd className="mt-1 font-semibold tabular-nums text-navy">
                 {formatInrTable(client.monthlyBudgetInr)}
               </dd>
             </div>
             <div>
-              <dt className="text-xs text-muted">Spend to date</dt>
-              <dd className="mt-1 text-sm font-semibold tabular-nums text-navy">
+              <dt className="text-label-muted normal-case tracking-normal">Spend to date</dt>
+              <dd className="mt-1 font-semibold tabular-nums text-navy">
                 {formatInrTable(client.spendToDateInr)}
               </dd>
             </div>
             <div>
-              <dt className="text-xs text-muted">MTD pacing</dt>
+              <dt className="text-label-muted normal-case tracking-normal">MTD pacing</dt>
               <dd
-                className={`mt-1 text-sm font-semibold tabular-nums ${
+                className={`mt-1 font-semibold tabular-nums ${
                   client.pacingPercent > 110 ? "text-coral" : "text-navy"
                 }`}
               >
@@ -145,18 +137,18 @@ function ClientDrawer({
               </dd>
             </div>
             <div>
-              <dt className="text-xs text-muted">Today&apos;s spend</dt>
-              <dd className="mt-1 text-sm font-semibold tabular-nums text-navy">
+              <dt className="text-label-muted normal-case tracking-normal">Today&apos;s spend</dt>
+              <dd className="mt-1 font-semibold tabular-nums text-navy">
                 {formatInrTable(client.todaySpendInr)}
               </dd>
             </div>
           </dl>
 
           <div className="mt-6 rounded-card border border-line bg-bg-alt p-4">
-            <p className="text-xs font-medium text-muted">
+            <p className="text-label-muted normal-case tracking-normal">
               Today vs 4× max daily (90d)
             </p>
-            <p className="mt-2 text-sm text-text">
+            <p className="mt-2 text-body">
               Threshold{" "}
               <span className="font-semibold tabular-nums text-navy">
                 {formatInrTable(client.overspendThresholdInr)}
@@ -177,7 +169,7 @@ function ClientDrawer({
             </p>
           </div>
 
-          <h4 className="mt-8 text-sm font-semibold text-navy">Creatives</h4>
+          <h4 className="mt-8 text-h3">Creatives</h4>
           <ul className="mt-3 space-y-3">
             {client.creatives.map((creative) => {
               const fatigued = isCreativeFatigued(
@@ -191,16 +183,16 @@ function ClientDrawer({
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <p className="text-sm font-medium text-navy">
+                      <p className="font-medium text-navy">
                         {creative.name}
                       </p>
-                      <p className="mt-0.5 text-xs text-muted">
+                      <p className="mt-0.5 text-label text-muted">
                         {creative.platform}
                       </p>
                     </div>
                     <CreativeTag fatigued={fatigued} />
                   </div>
-                  <dl className="mt-3 grid grid-cols-3 gap-2 text-xs">
+                  <dl className="mt-3 grid grid-cols-3 gap-2 text-label">
                     <div>
                       <dt className="text-muted">CTR (30d)</dt>
                       <dd className="mt-0.5 font-semibold tabular-nums text-navy">
@@ -269,13 +261,9 @@ export function PrototypeSection() {
   const filters: StatusFilter[] = ["All", "Overspend", "Watch", "Healthy"];
 
   return (
-    <div className="mx-auto max-w-6xl px-6 lg:px-8">
-      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-lavender">
-        Prototype
-      </p>
-      <h2 className="mt-3 text-3xl font-semibold tracking-tight text-navy">
-        Monday morning brief
-      </h2>
+    <Container>
+      <p className="text-label">Prototype</p>
+      <h2 className="mt-3 text-h2">Monday morning brief</h2>
       <p className="mt-3 max-w-2xl text-muted">
         All 20 client accounts, ranked by what needs you first.
       </p>
@@ -303,8 +291,8 @@ export function PrototypeSection() {
         />
       </div>
 
-      <div className="mt-10 flex flex-col items-start gap-6 lg:flex-row">
-        <div className="min-w-0 flex-1 rounded-panel border border-line bg-white p-6 shadow-card lg:p-8">
+      <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px]">
+        <div className="min-w-0 rounded-panel border border-line bg-white p-6 shadow-card lg:p-8">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <label className="relative block w-full max-w-sm">
             <span className="sr-only">Search clients</span>
@@ -313,7 +301,7 @@ export function PrototypeSection() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search clients…"
-              className="w-full rounded-full border border-line bg-bg-alt py-2.5 pl-4 pr-4 text-sm text-navy outline-none transition-colors placeholder:text-muted focus:border-lavender"
+              className="w-full rounded-full border border-line bg-bg-alt py-2.5 pl-4 pr-4 text-body text-navy outline-none transition-colors placeholder:text-fg-muted focus:border-lavender"
             />
           </label>
           <div
@@ -328,10 +316,10 @@ export function PrototypeSection() {
                   key={filter}
                   type="button"
                   onClick={() => setStatusFilter(filter)}
-                  className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${
+                  className={`rounded-full px-3.5 py-1.5 transition-colors ${
                     active
-                      ? "bg-navy text-white"
-                      : "border border-line bg-white text-muted hover:text-navy"
+                      ? "bg-navy text-label text-white"
+                      : "border border-line bg-white text-label-muted normal-case tracking-normal hover:text-navy"
                   }`}
                 >
                   {filter}
@@ -341,13 +329,13 @@ export function PrototypeSection() {
           </div>
         </div>
 
-        <div className="mt-6 overflow-x-auto">
-          <p className="mb-3 text-xs text-muted">
+        <div className="mt-6 max-lg:overflow-x-auto">
+          <p className="mb-3 text-label-muted normal-case tracking-normal">
             Showing {filtered.length} client{filtered.length === 1 ? "" : "s"}
           </p>
-          <table className="w-full min-w-[880px] border-collapse text-left text-sm">
+          <table className="w-full min-w-[880px] border-collapse text-left text-table lg:min-w-0">
             <thead>
-              <tr className="border-b border-line text-xs font-medium uppercase tracking-wide text-muted">
+              <tr className="border-b border-line text-label-muted">
                 <th className="pb-3 pr-4 align-middle font-medium">Client</th>
                 <th className="pb-3 pr-4 align-middle font-medium">Platforms</th>
                 <th className="pb-3 pr-4 align-middle font-medium">
@@ -379,7 +367,7 @@ export function PrototypeSection() {
                         {client.platforms.map((platform) => (
                           <span
                             key={platform}
-                            className="rounded-full bg-bg-alt px-2.5 py-1 text-[11px] font-medium text-muted"
+                            className="rounded-full bg-bg-alt px-2.5 py-1 text-label-muted normal-case tracking-normal"
                           >
                             {platform}
                           </span>
@@ -389,7 +377,7 @@ export function PrototypeSection() {
                     <td className="py-4 pr-4 align-middle">
                       <p className="tabular-nums text-navy">
                         {formatInrTable(client.spendToDateInr)}
-                        <span className="text-muted">
+                        <span className="text-fg-muted">
                           {" "}
                           / {formatInrTable(client.monthlyBudgetInr)}
                         </span>
@@ -405,7 +393,7 @@ export function PrototypeSection() {
                           style={{ width: `${barWidth}%` }}
                         />
                       </div>
-                      <p className="mt-1 text-xs tabular-nums text-muted">
+                      <p className="mt-1 text-label-muted normal-case tracking-normal tabular-nums">
                         {formatPercent(client.pacingPercent, 0)} pacing
                       </p>
                     </td>
@@ -424,14 +412,14 @@ export function PrototypeSection() {
             </tbody>
           </table>
           {filtered.length === 0 ? (
-            <p className="py-8 text-center text-sm text-muted">
+            <p className="py-8 text-center text-muted">
               No clients match this search or filter.
             </p>
           ) : null}
         </div>
         </div>
 
-        <div className="w-full lg:sticky lg:top-24 lg:w-[380px] lg:shrink-0">
+        <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
           <AskAdsGptPanel
             clients={displayClients}
             overrides={sessionOverrides}
@@ -443,6 +431,6 @@ export function PrototypeSection() {
       {selected ? (
         <ClientDrawer client={selected} onClose={() => setSelectedId(null)} />
       ) : null}
-    </div>
+    </Container>
   );
 }

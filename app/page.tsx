@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Container } from "@/components/container";
 import { FadeIn, FadeInGroup } from "@/components/fade-in";
 import { PrototypeSection } from "@/components/prototype-section";
 import { SectionLink } from "@/components/section-link";
@@ -27,11 +28,11 @@ function PillButton({
   children: React.ReactNode;
 }) {
   const base =
-    "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors";
+    "inline-flex items-center justify-center rounded-full px-7 py-3.5 text-button font-semibold transition-colors";
   const styles =
     variant === "solid"
       ? "bg-ink text-white hover:bg-navy"
-      : "border border-line bg-white text-ink hover:border-muted/40";
+      : "border border-line bg-white text-body hover:border-muted/40";
 
   return (
     <SectionLink sectionId={sectionId} className={`${base} ${styles}`}>
@@ -44,10 +45,10 @@ export default function Home() {
   return (
     <div className="flex flex-col flex-1">
       <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur-sm">
-        <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-6 lg:px-8">
+        <Container className="flex h-16 items-center gap-6">
           <Link
             href="/"
-            className="shrink-0 text-sm font-semibold tracking-tight text-navy sm:text-base"
+            className="shrink-0 text-nav font-semibold text-navy sm:text-body"
           >
             AdsGPT Command Center
           </Link>
@@ -59,7 +60,7 @@ export default function Home() {
               <SectionLink
                 key={link.sectionId}
                 sectionId={link.sectionId}
-                className="text-sm font-medium text-muted transition-colors hover:text-navy"
+                className="text-nav font-medium text-muted transition-colors hover:text-navy"
               >
                 {link.label}
               </SectionLink>
@@ -70,7 +71,7 @@ export default function Home() {
               Open prototype
             </PillButton>
           </div>
-        </div>
+        </Container>
       </header>
 
       <main className="flex-1">
@@ -84,18 +85,20 @@ export default function Home() {
             className="pointer-events-none absolute -right-16 top-32 h-80 w-80 rounded-full bg-coral opacity-40 blur-3xl"
           />
 
-          <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-16 lg:px-8 lg:pb-28 lg:pt-20">
+          <Container className="relative pb-24 pt-16 lg:pb-28 lg:pt-20">
             <FadeIn>
-              <p className="mb-8 inline-flex items-center rounded-full border border-line bg-white px-4 py-1.5 text-xs font-medium text-muted shadow-[0_0_24px_rgba(184,169,254,0.45)]">
+              <p className="mb-8 inline-flex items-center rounded-full border border-line bg-white px-4 py-1.5 text-label-muted shadow-[0_0_24px_rgba(184,169,254,0.45)]">
                 Concept · Not affiliated with Venxr
               </p>
             </FadeIn>
 
             <FadeIn className="max-w-3xl">
-              <h1 className="text-[40px] font-semibold leading-[1.1] tracking-tight text-navy sm:text-[52px] lg:text-[60px]">
-                Every client. Every rupee. One morning brief.
+              <h1 className="text-hero">
+                Every client. Every rupee.
+                <br />
+                One morning brief.
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+              <p className="mt-6 max-w-[620px] text-subline">
                 A portfolio command center for agency leads running 20+ ad
                 accounts, built on AdsGPT&apos;s Govern and Analyze pillars.
               </p>
@@ -111,22 +114,20 @@ export default function Home() {
 
             <FadeIn className="mt-16">
               <div className="h-1.5 w-full max-w-md rounded-full brand-gradient opacity-80" />
-              <p className="mt-4 text-xs text-muted">
+              <p className="mt-4 text-label-muted">
                 Unofficial PM case study · Om Raje
               </p>
             </FadeIn>
-          </div>
+          </Container>
         </section>
 
         <section
           id="problem"
           className="scroll-mt-20 border-t border-line bg-bg-alt py-20 lg:py-24"
         >
-          <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <Container>
             <FadeIn>
-              <h2 className="text-3xl font-semibold tracking-tight text-navy">
-                The problem
-              </h2>
+              <h2 className="text-h2">The problem</h2>
               <p className="mt-3 max-w-2xl text-muted">
                 Agency leads stitch together platform tabs, pacing sheets, and
                 Slack threads — then still walk into client stand-ups blind.
@@ -139,16 +140,16 @@ export default function Home() {
                   key={stat.value}
                   className="rounded-card border border-line bg-white p-8 shadow-card"
                 >
-                  <p className="text-4xl font-semibold tracking-tight text-navy">
+                  <p className="text-stat">
                     {stat.value}
                   </p>
-                  <p className="mt-3 text-sm leading-relaxed text-muted">
+                  <p className="mt-3 text-muted">
                     {stat.line}
                   </p>
                 </div>
               ))}
             </FadeInGroup>
-          </div>
+          </Container>
         </section>
 
         <section
@@ -173,9 +174,9 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-line py-10">
-        <div className="mx-auto max-w-6xl px-6 text-center text-sm text-muted lg:px-8">
+        <Container className="text-center text-muted">
           AdsGPT Command Center — concept by Om Raje. Not affiliated with Venxr.
-        </div>
+        </Container>
       </footer>
     </div>
   );

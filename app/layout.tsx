@@ -4,9 +4,10 @@ import { ScrollToTop } from "@/components/scroll-to-top";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
+  variable: "--font-jakarta",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -17,11 +18,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${plusJakarta.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-white text-text font-sans">
+    <html lang="en" className={`${plusJakarta.variable} h-full`}>
+      <body className="min-h-full flex flex-col bg-white font-sans text-body antialiased">
         <ScrollToTop />
         {children}
       </body>

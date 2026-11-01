@@ -153,9 +153,11 @@ export function AskAdsGptPanel({
             className="h-2 w-2 shrink-0 rounded-full brand-gradient"
             aria-hidden
           />
-          <h3 className="text-base font-semibold text-navy">Ask AdsGPT</h3>
+          <h3 className="text-h3">Ask AdsGPT</h3>
         </div>
-        <p className="mt-1 text-xs text-muted">Scripted demo on sample data.</p>
+        <p className="mt-1 text-label-muted normal-case tracking-normal">
+          Scripted demo on sample data.
+        </p>
       </div>
 
       <div
@@ -175,7 +177,7 @@ export function AskAdsGptPanel({
               key={chip}
               type="button"
               onClick={() => dispatchMessage(chip)}
-              className="shrink-0 rounded-full border border-line bg-bg-alt px-3 py-1.5 text-left text-xs font-medium whitespace-nowrap text-navy transition-colors hover:border-lavender hover:bg-white"
+              className="shrink-0 rounded-full border border-line bg-bg-alt px-3 py-1.5 text-left text-label-muted normal-case tracking-normal whitespace-nowrap text-navy transition-colors hover:border-lavender hover:bg-white"
             >
               {chip}
             </button>
@@ -191,7 +193,7 @@ export function AskAdsGptPanel({
           if (item.kind === "user") {
             return (
               <div key={item.id} className="flex justify-end">
-                <p className="max-w-[92%] rounded-2xl bg-navy px-4 py-2.5 text-sm text-white">
+                <p className="max-w-[92%] rounded-2xl bg-navy px-4 py-2.5 text-body text-white">
                   {item.text}
                 </p>
               </div>
@@ -202,7 +204,7 @@ export function AskAdsGptPanel({
             return (
               <div
                 key={item.id}
-                className="rounded-card border border-success/30 bg-success/12 px-4 py-3 text-sm text-navy"
+                className="rounded-card border border-success/30 bg-success/12 px-4 py-3 text-body text-navy"
               >
                 <span>{item.text} </span>
                 <button
@@ -218,7 +220,7 @@ export function AskAdsGptPanel({
 
           return (
             <div key={item.id} className="max-w-full space-y-3">
-              <p className="whitespace-pre-line rounded-2xl bg-bg-alt px-4 py-3 text-sm leading-relaxed text-text">
+              <p className="whitespace-pre-line rounded-2xl bg-bg-alt px-4 py-3 text-body">
                 {item.text}
               </p>
               {item.actions.length > 0 ? (
@@ -228,7 +230,7 @@ export function AskAdsGptPanel({
                       key={action.id}
                       type="button"
                       onClick={() => handleAction(action)}
-                      className="rounded-full border border-line bg-white px-3 py-1.5 text-xs font-semibold text-navy transition-colors hover:border-lavender"
+                      className="rounded-full border border-line bg-white px-3 py-1.5 text-label-muted normal-case tracking-normal text-navy transition-colors hover:border-lavender"
                     >
                       {action.label}
                     </button>
@@ -260,13 +262,13 @@ export function AskAdsGptPanel({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about spend, fatigue, pacing…"
-            className="min-w-0 flex-1 bg-transparent text-sm text-navy outline-none placeholder:text-muted"
+            className="min-w-0 flex-1 bg-transparent text-body text-navy outline-none placeholder:text-fg-muted"
             autoComplete="off"
           />
           <button
             type="submit"
             disabled={!input.trim() || typing}
-            className="shrink-0 rounded-full bg-ink px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-navy disabled:cursor-not-allowed disabled:opacity-40"
+            className="shrink-0 rounded-full bg-ink px-5 py-2.5 text-button font-semibold text-white transition-colors hover:bg-navy disabled:cursor-not-allowed disabled:opacity-40"
           >
             Send
           </button>
