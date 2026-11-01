@@ -136,6 +136,34 @@ const PLATFORM_BADGES: Record<
   Amazon: { abbr: "A", className: "bg-[#FFF3E0] text-[#E47911]" },
 };
 
+function TableSwapFade({
+  swapKey,
+  className = "",
+  children,
+  as: Tag = "tbody",
+}: {
+  swapKey: string;
+  className?: string;
+  children: React.ReactNode;
+  as?: "tbody" | "div";
+}) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(false);
+    const raf = requestAnimationFrame(() => setVisible(true));
+    return () => cancelAnimationFrame(raf);
+  }, [swapKey]);
+
+  return (
+    <Tag
+      className={`transition-opacity duration-150 ease-out ${visible ? "opacity-100" : "opacity-0"} ${className}`.trim()}
+    >
+      {children}
+    </Tag>
+  );
+}
+
 function PlatformBadges({ platforms }: { platforms: string[] }) {
   return (
     <div className="flex items-center pl-0.5">
@@ -404,6 +432,7 @@ export function PrototypeSection() {
     EMPTY_SESSION_OVERRIDES,
   );
   const askPanelRef = useRef<AskAdsGptPanelHandle>(null);
+  const tableScrollRef = useRef<HTMLDivElement>(null);
   const [portalReady, setPortalReady] = useState(false);
 
   useEffect(() => {
@@ -422,7 +451,18 @@ export function PrototypeSection() {
 
   useEffect(() => {
     setExpandedId(null);
+    tableScrollRef.current?.scrollTo({ top: 0 });
   }, [query, statusFilter]);
+
+  useEffect(() => {
+    if (!expandedId) return;
+    const scrollTimer = window.setTimeout(() => {
+      document
+        .getElementById(`client-expanded-${expandedId}`)
+        ?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }, 280);
+    return () => window.clearTimeout(scrollTimer);
+  }, [expandedId]);
 
   useEffect(() => {
     const section = document.getElementById("prototype");
@@ -582,6 +622,8 @@ export function PrototypeSection() {
     return `${filter} ${summary.statusCounts[filter]}`;
   }
 
+  const tableSwapKey = `${statusFilter}::${query}`;
+
   return (
     <>
     <Container>
@@ -718,29 +760,52 @@ export function PrototypeSection() {
           Showing {filtered.length} client{filtered.length === 1 ? "" : "s"}
         </p>
 
-        <div className="mt-4 overflow-x-auto">
-          <table className="w-full min-w-[1024px] border-collapse text-left text-[16px] lg:min-w-0">
-            <thead>
-              <tr className="border-b border-[#F0F1F8] text-[12px] font-semibold uppercase tracking-[0.06em] text-muted">
-                <th className="w-[min(28%,320px)] px-5 pb-4 align-bottom font-semibold">
-                  Client
-                </th>
-                <th className="px-5 pb-4 align-bottom font-semibold">Platforms</th>
-                <th className="px-5 pb-4 text-right align-bottom font-semibold">
-                  Spend vs budget
-                </th>
-                <th className="px-5 pb-4 align-bottom font-semibold">Pacing</th>
-                <th className="px-5 pb-4 text-right align-bottom font-semibold tabular-nums">
-                  Today&apos;s spend
-                </th>
-                <th className="px-5 pb-4 align-bottom font-semibold">Status</th>
-                <th className="px-5 pb-4 text-right align-bottom font-semibold tabular-nums">
-                  Fatigued ads
-                </th>
-                <th className="w-10 px-5 pb-4 align-bottom" aria-hidden />
-              </tr>
-            </thead>
-            <tbody>
+        <div
+          ref={tableScrollRef}
+          className="mt-4 h-[600px] overflow-x-auto overflow-y-auto [scrollbar-gutter:stable] [scrollbar-color:rgb(107_91_214/0.2)_transparent] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#6B5BD6]/20 [&::-webkit-scrollbar-track]:bg-transparent"
+        >
+          {filtered.length === 0 ? (
+            <TableSwapFade
+              swapKey={tableSwapKey}
+              as="div"
+              className="flex h-full min-h-[600px] items-center justify-center"
+            >
+              <p className="text-center text-[15px] text-muted">
+                No clients match this search or filter.
+              </p>
+            </TableSwapFade>
+          ) : (
+            <table className="w-full table-fixed border-collapse text-left text-[16px]">
+              <thead className="sticky top-0 z-10 bg-white">
+                <tr className="border-b border-[#F0F1F8] text-[12px] font-semibold uppercase tracking-[0.06em] text-muted">
+                  <th className="w-[26%] bg-white px-5 pb-4 align-bottom font-semibold">
+                    Client
+                  </th>
+                  <th className="w-[12%] bg-white px-5 pb-4 align-bottom font-semibold">
+                    Platforms
+                  </th>
+                  <th className="w-[18%] bg-white px-5 pb-4 text-right align-bottom font-semibold">
+                    Spend vs budget
+                  </th>
+                  <th className="w-[12%] bg-white px-5 pb-4 align-bottom font-semibold">
+                    Pacing
+                  </th>
+                  <th className="w-[12%] bg-white px-5 pb-4 text-right align-bottom font-semibold tabular-nums">
+                    Today&apos;s spend
+                  </th>
+                  <th className="w-[10%] bg-white px-5 pb-4 align-bottom font-semibold">
+                    Status
+                  </th>
+                  <th className="w-[10%] bg-white px-5 pb-4 text-right align-bottom font-semibold tabular-nums">
+                    Fatigued ads
+                  </th>
+                  <th
+                    className="w-10 bg-white px-2 pb-4 align-bottom"
+                    aria-hidden
+                  />
+                </tr>
+              </thead>
+              <TableSwapFade swapKey={tableSwapKey} key={tableSwapKey}>
               {filtered.map((client) => {
                 const isOpen = expandedId === client.id;
                 const barOverPacing = client.pacingPercent > 100;
@@ -756,13 +821,13 @@ export function PrototypeSection() {
                       onClick={() => toggleExpanded(client.id)}
                       aria-expanded={isOpen}
                     >
-                      <td className="h-[72px] px-5 py-0 align-middle">
-                        <div className="flex items-center gap-3">
+                      <td className="h-[72px] max-w-0 px-5 py-0 align-middle">
+                        <div className="flex min-w-0 items-center gap-3">
                           <ClientAvatar
                             name={client.name}
                             status={client.status}
                           />
-                          <div className="min-w-0">
+                          <div className="min-w-0 flex-1">
                             <p className="truncate font-semibold text-navy">
                               {client.name}
                             </p>
@@ -772,22 +837,22 @@ export function PrototypeSection() {
                           </div>
                         </div>
                       </td>
-                      <td className="h-[72px] px-5 py-0 align-middle">
+                      <td className="h-[72px] max-w-0 overflow-hidden px-5 py-0 align-middle">
                         <PlatformBadges platforms={client.platforms} />
                       </td>
-                      <td className="h-[72px] px-5 py-0 text-right align-middle">
-                        <p className="tabular-nums text-navy">
+                      <td className="h-[72px] max-w-0 px-5 py-0 text-right align-middle">
+                        <p className="truncate tabular-nums text-navy">
                           {formatInrTable(client.spendToDateInr)}
-                          <span className="text-[14px] text-muted">
+                          <span className="text-[14px] tabular-nums text-muted">
                             {" "}
                             of {formatInrTable(client.monthlyBudgetInr)}
                           </span>
                         </p>
                       </td>
-                      <td className="h-[72px] px-5 py-0 align-middle">
-                        <div className="flex items-center gap-3">
+                      <td className="h-[72px] max-w-0 px-5 py-0 align-middle">
+                        <div className="flex min-w-0 items-center gap-2">
                           <div
-                            className="h-1.5 w-[120px] shrink-0 overflow-hidden rounded-full bg-[#EEF0F8]"
+                            className="h-1.5 min-w-0 flex-1 overflow-hidden rounded-full bg-[#EEF0F8]"
                             aria-hidden
                           >
                             <div
@@ -800,22 +865,27 @@ export function PrototypeSection() {
                           </span>
                         </div>
                       </td>
-                      <td className="h-[72px] px-5 py-0 text-right align-middle tabular-nums text-navy">
-                        {formatInrTable(client.todaySpendInr)}
+                      <td className="h-[72px] max-w-0 px-5 py-0 text-right align-middle">
+                        <span className="block truncate tabular-nums text-navy">
+                          {formatInrTable(client.todaySpendInr)}
+                        </span>
                       </td>
-                      <td className="h-[72px] px-5 py-0 align-middle">
+                      <td className="h-[72px] max-w-0 overflow-hidden px-5 py-0 align-middle">
                         <StatusPill status={client.status} />
                       </td>
-                      <td className="h-[72px] px-5 py-0 text-right align-middle tabular-nums text-navy">
-                        {client.fatiguedCreativeCount}
+                      <td className="h-[72px] max-w-0 px-5 py-0 text-right align-middle">
+                        <span className="block truncate tabular-nums text-navy">
+                          {client.fatiguedCreativeCount}
+                        </span>
                       </td>
-                      <td className="h-[72px] px-5 py-0 align-middle">
+                      <td className="h-[72px] w-10 px-2 py-0 align-middle">
                         <RowChevron open={isOpen} />
                       </td>
                     </tr>
                     <tr className="border-b border-[#F0F1F8]">
                       <td colSpan={8} className="p-0">
                         <div
+                          id={`client-expanded-${client.id}`}
                           className="client-row-detail-shell min-h-0"
                           data-state={isOpen ? "open" : "closed"}
                         >
@@ -833,13 +903,9 @@ export function PrototypeSection() {
                   </Fragment>
                 );
               })}
-            </tbody>
-          </table>
-          {filtered.length === 0 ? (
-            <p className="py-10 text-center text-[15px] text-muted">
-              No clients match this search or filter.
-            </p>
-          ) : null}
+              </TableSwapFade>
+            </table>
+          )}
         </div>
       </div>
     </Container>
