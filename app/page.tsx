@@ -1,6 +1,7 @@
 import { Container } from "@/components/container";
 import { FadeIn, FadeInGroup } from "@/components/fade-in";
 import { HeroBackground } from "@/components/hero-background";
+import { MetricsSection } from "@/components/metrics-section";
 import { PrdSection } from "@/components/prd-section";
 import { PrototypeSection } from "@/components/prototype-section";
 import { SectionLink } from "@/components/section-link";
@@ -209,8 +210,10 @@ export default function Home() {
         <section
           id="metrics"
           className="scroll-mt-20 section-full-bleed section-lavender-band py-20 lg:py-28"
-          aria-label="Metrics placeholder"
-        />
+          aria-label="Success metrics"
+        >
+          <MetricsSection />
+        </section>
       </main>
 
       <footer className="section-full-bleed border-t border-line py-10">
