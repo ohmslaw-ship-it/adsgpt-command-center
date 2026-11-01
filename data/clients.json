@@ -1,7 +1,7 @@
 {
   "meta": {
     "currency": "INR",
-    "overspendRule": "todaySpendInr >= 4 × (monthlyBudgetInr / 30)",
+    "overspendRule": "todaySpendInr > 4 × maxDailySpend90dInr",
     "fatigueRule": "frequency30d >= 4.5 and ctr30d <= 0.65 (percent)"
   },
   "clients": [
@@ -90,7 +90,7 @@
       "monthlyBudgetInr": 900000,
       "spendToDateInr": 540000,
       "maxDailySpend90dInr": 98000,
-      "todaySpendInr": 128000,
+      "todaySpendInr": 430000,
       "overspendBreach": true,
       "creatives": [
         {
@@ -195,7 +195,7 @@
           "platform": "Meta",
           "ctr30d": 0.58,
           "cpa30dInr": 510,
-          "frequency30d": 4.8,
+          "frequency30d": 3.6,
           "fatigued": false
         }
       ]
@@ -285,7 +285,7 @@
       "monthlyBudgetInr": 600000,
       "spendToDateInr": 372000,
       "maxDailySpend90dInr": 72000,
-      "todaySpendInr": 86000,
+      "todaySpendInr": 310000,
       "overspendBreach": true,
       "creatives": [
         {
@@ -312,7 +312,7 @@
           "platform": "Meta",
           "ctr30d": 0.61,
           "cpa30dInr": 142,
-          "frequency30d": 4.6,
+          "frequency30d": 3.5,
           "fatigued": false
         }
       ]
@@ -615,7 +615,7 @@
           "platform": "DV360",
           "ctr30d": 0.64,
           "cpa30dInr": 512,
-          "frequency30d": 4.7,
+          "frequency30d": 3.4,
           "fatigued": false
         },
         {
@@ -636,7 +636,7 @@
       "monthlyBudgetInr": 1200000,
       "spendToDateInr": 780000,
       "maxDailySpend90dInr": 118000,
-      "todaySpendInr": 168000,
+      "todaySpendInr": 500000,
       "overspendBreach": true,
       "creatives": [
         {

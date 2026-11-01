@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { FadeIn, FadeInGroup } from "@/components/fade-in";
+import { PrototypeSection } from "@/components/prototype-section";
+import { SectionLink } from "@/components/section-link";
+import { getEnrichedClients, getPortfolioSummary } from "@/lib/clients";
 
 const navLinks = [
-  { href: "#problem", label: "Problem" },
-  { href: "#prototype", label: "Prototype" },
-  { href: "#prd", label: "PRD" },
-  { href: "#metrics", label: "Metrics" },
+  { sectionId: "problem", label: "Problem" },
+  { sectionId: "prototype", label: "Prototype" },
+  { sectionId: "prd", label: "PRD" },
+  { sectionId: "metrics", label: "Metrics" },
 ] as const;
 
 /* Illustrative stats for the case-study narrative — not live data */
@@ -16,11 +19,11 @@ const problemStats = [
 ] as const;
 
 function PillButton({
-  href,
+  sectionId,
   variant,
   children,
 }: {
-  href: string;
+  sectionId: string;
   variant: "solid" | "outline";
   children: React.ReactNode;
 }) {
@@ -32,13 +35,16 @@ function PillButton({
       : "border border-line bg-white text-ink hover:border-muted/40";
 
   return (
-    <Link href={href} className={`${base} ${styles}`}>
+    <SectionLink sectionId={sectionId} className={`${base} ${styles}`}>
       {children}
-    </Link>
+    </SectionLink>
   );
 }
 
 export default function Home() {
+  const enrichedClients = getEnrichedClients();
+  const portfolioSummary = getPortfolioSummary(enrichedClients);
+
   return (
     <div className="flex flex-col flex-1">
       <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur-sm">
@@ -54,17 +60,17 @@ export default function Home() {
             aria-label="Primary"
           >
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
+              <SectionLink
+                key={link.sectionId}
+                sectionId={link.sectionId}
                 className="text-sm font-medium text-muted transition-colors hover:text-navy"
               >
                 {link.label}
-              </Link>
+              </SectionLink>
             ))}
           </nav>
           <div className="ml-auto shrink-0">
-            <PillButton href="#prototype" variant="solid">
+            <PillButton sectionId="prototype" variant="solid">
               Open prototype
             </PillButton>
           </div>
@@ -98,10 +104,10 @@ export default function Home() {
                 accounts, built on AdsGPT&apos;s Govern and Analyze pillars.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
-                <PillButton href="#prototype" variant="solid">
+                <PillButton sectionId="prototype" variant="solid">
                   Open prototype
                 </PillButton>
-                <PillButton href="#prd" variant="outline">
+                <PillButton sectionId="prd" variant="outline">
                   Read the PRD
                 </PillButton>
               </div>
@@ -151,9 +157,14 @@ export default function Home() {
 
         <section
           id="prototype"
-          className="scroll-mt-20 border-t border-line py-20 lg:py-24"
-          aria-label="Prototype placeholder"
-        />
+          className="scroll-mt-20 border-t border-line bg-white py-20 lg:py-24"
+          aria-label="Monday morning brief prototype"
+        >
+          <PrototypeSection
+            clients={enrichedClients}
+            summary={portfolioSummary}
+          />
+        </section>
 
         <section
           id="prd"
