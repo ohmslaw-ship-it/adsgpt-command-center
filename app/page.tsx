@@ -113,11 +113,11 @@ function HeroButton({
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1">
+    <div className="flex w-full min-w-0 flex-col flex-1">
       <SiteHeader />
 
-      <main className="flex-1">
-        <section className="relative -mt-[72px] flex min-h-[100svh] flex-col overflow-hidden pt-[72px]">
+      <main className="w-full min-w-0 flex-1">
+        <section className="section-full-bleed relative -mt-[72px] flex min-h-[100svh] flex-col overflow-hidden pt-[72px]">
           <HeroBackground />
 
           <Container className="relative -mt-8 flex flex-1 flex-col items-center justify-center pb-28 pt-8 text-center lg:pb-32">
@@ -158,7 +158,7 @@ export default function Home() {
 
         <section
           id="problem"
-          className="scroll-mt-20 bg-white py-20 lg:py-28"
+          className="scroll-mt-20 section-full-bleed bg-white py-20 lg:py-28"
         >
           <Container>
             <FadeIn className="mb-14">
@@ -192,7 +192,7 @@ export default function Home() {
 
         <section
           id="prototype"
-          className="scroll-mt-20 section-lavender-band py-20 lg:py-28"
+          className="scroll-mt-20 section-full-bleed section-lavender-band py-20 lg:py-28"
           aria-label="Monday morning brief prototype"
         >
           <PrototypeSection />
@@ -200,7 +200,7 @@ export default function Home() {
 
         <section
           id="prd"
-          className="scroll-mt-20 bg-white py-20 lg:py-28"
+          className="scroll-mt-20 section-full-bleed bg-white py-20 lg:py-28"
           aria-label="Product requirements"
         >
           <PrdSection />
@@ -208,12 +208,12 @@ export default function Home() {
 
         <section
           id="metrics"
-          className="scroll-mt-20 section-lavender-band py-20 lg:py-28"
+          className="scroll-mt-20 section-full-bleed section-lavender-band py-20 lg:py-28"
           aria-label="Metrics placeholder"
         />
       </main>
 
-      <footer className="border-t border-line py-10">
+      <footer className="section-full-bleed border-t border-line py-10">
         <Container className="text-center text-muted">
           AdsGPT Command Center — concept by Om Raje. Not affiliated with Venxr.
         </Container>

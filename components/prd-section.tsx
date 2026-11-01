@@ -213,7 +213,7 @@ export function PrdSection() {
         </header>
       </FadeIn>
 
-      <div className="mx-auto grid w-full max-w-[1108px] grid-cols-1 gap-12 lg:grid-cols-[260px_minmax(0,820px)]">
+      <div className="mx-auto grid w-full max-w-[1108px] grid-cols-1 gap-12 lg:grid-cols-[260px_minmax(0,820px)] lg:gap-16">
         <nav
           className="hidden w-[260px] shrink-0 lg:block"
           aria-label="PRD table of contents"

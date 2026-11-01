@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Container } from "@/components/container";
 import { SectionLink } from "@/components/section-link";
 
 const navLinks = [
@@ -41,11 +40,11 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-[#EEF0F6] bg-white transition-[background-color,backdrop-filter] duration-200 ${
+      className={`sticky top-0 z-50 w-full border-b border-[#EEF0F6] bg-white transition-[background-color,backdrop-filter] duration-200 ${
         scrolled ? "bg-white/90 backdrop-blur-md" : "bg-white"
       }`}
     >
-      <Container className="flex h-[72px] items-center gap-6">
+      <div className="mx-auto flex h-[72px] w-full max-w-[1440px] items-center gap-6 px-10">
         <Link
           href="/"
           className="shrink-0 text-[20px] font-bold text-navy"
@@ -69,7 +68,7 @@ export function SiteHeader() {
         <div className="ml-auto shrink-0">
           <NavPillButton sectionId="prototype">Open prototype</NavPillButton>
         </div>
-      </Container>
+      </div>
     </header>
   );
 }

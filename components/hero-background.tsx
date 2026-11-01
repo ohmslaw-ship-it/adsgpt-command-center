@@ -8,7 +8,7 @@ export function HeroBackground() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to bottom, #E9ECFF 0%, #F1E9FF 42%, #FFE6E3 72%, #FFFFFF 100%)",
+            "linear-gradient(to bottom, #E9ECFF 0%, #F1E9FF 42%, #FFE6E3 72%, #FFF5F8 86%, #FFFBFC 94%)",
         }}
       />
 
@@ -33,7 +33,13 @@ export function HeroBackground() {
         <rect width="100%" height="100%" filter="url(#hero-grain-noise)" />
       </svg>
 
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-white" />
+      <div
+        className="absolute inset-x-0 bottom-0 h-[160px]"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 35%, rgba(255,255,255,0.85) 70%, #ffffff 100%)",
+        }}
+      />
     </div>
   );
 }
