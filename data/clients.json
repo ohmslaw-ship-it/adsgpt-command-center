@@ -1,0 +1,789 @@
+{
+  "meta": {
+    "currency": "INR",
+    "overspendRule": "todaySpendInr >= 4 × (monthlyBudgetInr / 30)",
+    "fatigueRule": "frequency30d >= 4.5 and ctr30d <= 0.65 (percent)"
+  },
+  "clients": [
+    {
+      "id": "cl-001",
+      "name": "Mamaearth",
+      "platforms": ["Google", "Meta", "Amazon"],
+      "monthlyBudgetInr": 9200000,
+      "spendToDateInr": 6120000,
+      "maxDailySpend90dInr": 410000,
+      "todaySpendInr": 298000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-001-a",
+          "name": "Ubtan serum carousel",
+          "platform": "Meta",
+          "ctr30d": 1.42,
+          "cpa30dInr": 186,
+          "frequency30d": 2.1,
+          "fatigued": false
+        },
+        {
+          "id": "cr-001-b",
+          "name": "Monsoon skin routine video",
+          "platform": "Google",
+          "ctr30d": 0.98,
+          "cpa30dInr": 214,
+          "frequency30d": 3.2,
+          "fatigued": false
+        },
+        {
+          "id": "cr-001-c",
+          "name": "Amazon storefront hero",
+          "platform": "Amazon",
+          "ctr30d": 0.52,
+          "cpa30dInr": 302,
+          "frequency30d": 5.1,
+          "fatigued": true
+        }
+      ]
+    },
+    {
+      "id": "cl-002",
+      "name": "boAt Lifestyle",
+      "platforms": ["Google", "Meta", "DV360"],
+      "monthlyBudgetInr": 14500000,
+      "spendToDateInr": 9880000,
+      "maxDailySpend90dInr": 620000,
+      "todaySpendInr": 455000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-002-a",
+          "name": "Airdopes 441 launch reel",
+          "platform": "Meta",
+          "ctr30d": 1.08,
+          "cpa30dInr": 412,
+          "frequency30d": 2.8,
+          "fatigued": false
+        },
+        {
+          "id": "cr-002-b",
+          "name": "YouTube masthead burst",
+          "platform": "DV360",
+          "ctr30d": 0.74,
+          "cpa30dInr": 528,
+          "frequency30d": 4.9,
+          "fatigued": true
+        },
+        {
+          "id": "cr-002-c",
+          "name": "Search — noise cancelling",
+          "platform": "Google",
+          "ctr30d": 2.31,
+          "cpa30dInr": 298,
+          "frequency30d": 1.6,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-003",
+      "name": "Zepto",
+      "platforms": ["Google", "Meta"],
+      "monthlyBudgetInr": 900000,
+      "spendToDateInr": 540000,
+      "maxDailySpend90dInr": 98000,
+      "todaySpendInr": 128000,
+      "overspendBreach": true,
+      "creatives": [
+        {
+          "id": "cr-003-a",
+          "name": "10-minute grocery hook",
+          "platform": "Meta",
+          "ctr30d": 1.65,
+          "cpa30dInr": 92,
+          "frequency30d": 3.4,
+          "fatigued": false
+        },
+        {
+          "id": "cr-003-b",
+          "name": "App install UAC",
+          "platform": "Google",
+          "ctr30d": 1.12,
+          "cpa30dInr": 118,
+          "frequency30d": 2.9,
+          "fatigued": false
+        },
+        {
+          "id": "cr-003-c",
+          "name": "Festive basket static",
+          "platform": "Meta",
+          "ctr30d": 0.88,
+          "cpa30dInr": 144,
+          "frequency30d": 3.8,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-004",
+      "name": "Nykaa",
+      "platforms": ["Google", "Meta", "DV360", "Amazon"],
+      "monthlyBudgetInr": 18200000,
+      "spendToDateInr": 12140000,
+      "maxDailySpend90dInr": 780000,
+      "todaySpendInr": 512000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-004-a",
+          "name": "Pink Friday countdown",
+          "platform": "Meta",
+          "ctr30d": 1.28,
+          "cpa30dInr": 268,
+          "frequency30d": 2.4,
+          "fatigued": false
+        },
+        {
+          "id": "cr-004-b",
+          "name": "Display luxury tier",
+          "platform": "DV360",
+          "ctr30d": 0.41,
+          "cpa30dInr": 612,
+          "frequency30d": 5.4,
+          "fatigued": true
+        },
+        {
+          "id": "cr-004-c",
+          "name": "Brand search coverage",
+          "platform": "Google",
+          "ctr30d": 3.02,
+          "cpa30dInr": 142,
+          "frequency30d": 1.2,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-005",
+      "name": "Tata CLiQ",
+      "platforms": ["Google", "Meta"],
+      "monthlyBudgetInr": 6800000,
+      "spendToDateInr": 4550000,
+      "maxDailySpend90dInr": 310000,
+      "todaySpendInr": 228000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-005-a",
+          "name": "Luxury edit lookbook",
+          "platform": "Meta",
+          "ctr30d": 0.96,
+          "cpa30dInr": 388,
+          "frequency30d": 2.7,
+          "fatigued": false
+        },
+        {
+          "id": "cr-005-b",
+          "name": "Performance Max feed",
+          "platform": "Google",
+          "ctr30d": 1.14,
+          "cpa30dInr": 322,
+          "frequency30d": 3.1,
+          "fatigued": false
+        },
+        {
+          "id": "cr-005-c",
+          "name": "End-of-season retarget",
+          "platform": "Meta",
+          "ctr30d": 0.58,
+          "cpa30dInr": 510,
+          "frequency30d": 4.8,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-006",
+      "name": "CRED",
+      "platforms": ["Google", "Meta", "DV360"],
+      "monthlyBudgetInr": 11200000,
+      "spendToDateInr": 7340000,
+      "maxDailySpend90dInr": 540000,
+      "todaySpendInr": 388000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-006-a",
+          "name": "Bill pay reward film",
+          "platform": "Meta",
+          "ctr30d": 1.02,
+          "cpa30dInr": 442,
+          "frequency30d": 2.2,
+          "fatigued": false
+        },
+        {
+          "id": "cr-006-b",
+          "name": "Connected TV burst",
+          "platform": "DV360",
+          "ctr30d": 0.68,
+          "cpa30dInr": 588,
+          "frequency30d": 3.6,
+          "fatigued": false
+        },
+        {
+          "id": "cr-006-c",
+          "name": "UAC — credit score",
+          "platform": "Google",
+          "ctr30d": 1.48,
+          "cpa30dInr": 356,
+          "frequency30d": 2.5,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-007",
+      "name": "Lenskart",
+      "platforms": ["Google", "Meta", "Amazon"],
+      "monthlyBudgetInr": 9800000,
+      "spendToDateInr": 6420000,
+      "maxDailySpend90dInr": 420000,
+      "todaySpendInr": 305000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-007-a",
+          "name": "Try-at-home AR demo",
+          "platform": "Meta",
+          "ctr30d": 1.36,
+          "cpa30dInr": 298,
+          "frequency30d": 2.6,
+          "fatigued": false
+        },
+        {
+          "id": "cr-007-b",
+          "name": "Search — blue light",
+          "platform": "Google",
+          "ctr30d": 2.44,
+          "cpa30dInr": 212,
+          "frequency30d": 1.8,
+          "fatigued": false
+        },
+        {
+          "id": "cr-007-c",
+          "name": "Amazon deals tile",
+          "platform": "Amazon",
+          "ctr30d": 0.91,
+          "cpa30dInr": 334,
+          "frequency30d": 3.3,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-008",
+      "name": "Swiggy Instamart",
+      "platforms": ["Google", "Meta"],
+      "monthlyBudgetInr": 600000,
+      "spendToDateInr": 372000,
+      "maxDailySpend90dInr": 72000,
+      "todaySpendInr": 86000,
+      "overspendBreach": true,
+      "creatives": [
+        {
+          "id": "cr-008-a",
+          "name": "Late-night snack hook",
+          "platform": "Meta",
+          "ctr30d": 1.72,
+          "cpa30dInr": 78,
+          "frequency30d": 3.9,
+          "fatigued": false
+        },
+        {
+          "id": "cr-008-b",
+          "name": "Geo-fenced app open",
+          "platform": "Google",
+          "ctr30d": 1.24,
+          "cpa30dInr": 96,
+          "frequency30d": 3.2,
+          "fatigued": false
+        },
+        {
+          "id": "cr-008-c",
+          "name": "Rainy day delivery static",
+          "platform": "Meta",
+          "ctr30d": 0.61,
+          "cpa30dInr": 142,
+          "frequency30d": 4.6,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-009",
+      "name": "Myntra",
+      "platforms": ["Google", "Meta", "DV360"],
+      "monthlyBudgetInr": 21000000,
+      "spendToDateInr": 13860000,
+      "maxDailySpend90dInr": 910000,
+      "todaySpendInr": 624000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-009-a",
+          "name": "End-of-reason sale reel",
+          "platform": "Meta",
+          "ctr30d": 1.18,
+          "cpa30dInr": 248,
+          "frequency30d": 2.9,
+          "fatigued": false
+        },
+        {
+          "id": "cr-009-b",
+          "name": "Premium street style DV",
+          "platform": "DV360",
+          "ctr30d": 0.55,
+          "cpa30dInr": 402,
+          "frequency30d": 5.2,
+          "fatigued": true
+        },
+        {
+          "id": "cr-009-c",
+          "name": "Brand + generic search",
+          "platform": "Google",
+          "ctr30d": 2.86,
+          "cpa30dInr": 188,
+          "frequency30d": 1.4,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-010",
+      "name": "PharmEasy",
+      "platforms": ["Google", "Meta"],
+      "monthlyBudgetInr": 5400000,
+      "spendToDateInr": 3580000,
+      "maxDailySpend90dInr": 240000,
+      "todaySpendInr": 172000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-010-a",
+          "name": "Subscription refill reminder",
+          "platform": "Meta",
+          "ctr30d": 1.06,
+          "cpa30dInr": 164,
+          "frequency30d": 2.3,
+          "fatigued": false
+        },
+        {
+          "id": "cr-010-b",
+          "name": "Medicine search coverage",
+          "platform": "Google",
+          "ctr30d": 2.12,
+          "cpa30dInr": 132,
+          "frequency30d": 1.7,
+          "fatigued": false
+        },
+        {
+          "id": "cr-010-c",
+          "name": "Wellness bundle carousel",
+          "platform": "Meta",
+          "ctr30d": 0.94,
+          "cpa30dInr": 198,
+          "frequency30d": 3.5,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-011",
+      "name": "AJIO",
+      "platforms": ["Google", "Meta", "Amazon"],
+      "monthlyBudgetInr": 8600000,
+      "spendToDateInr": 5710000,
+      "maxDailySpend90dInr": 360000,
+      "todaySpendInr": 248000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-011-a",
+          "name": "Festive ethnic drop",
+          "platform": "Meta",
+          "ctr30d": 1.22,
+          "cpa30dInr": 276,
+          "frequency30d": 2.5,
+          "fatigued": false
+        },
+        {
+          "id": "cr-011-b",
+          "name": "Amazon fashion storefront",
+          "platform": "Amazon",
+          "ctr30d": 0.88,
+          "cpa30dInr": 318,
+          "frequency30d": 3.0,
+          "fatigued": false
+        },
+        {
+          "id": "cr-011-c",
+          "name": "PMax — sneaker drop",
+          "platform": "Google",
+          "ctr30d": 1.34,
+          "cpa30dInr": 242,
+          "frequency30d": 2.8,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-012",
+      "name": "SUGAR Cosmetics",
+      "platforms": ["Google", "Meta"],
+      "monthlyBudgetInr": 4200000,
+      "spendToDateInr": 2890000,
+      "maxDailySpend90dInr": 195000,
+      "todaySpendInr": 138000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-012-a",
+          "name": "Matte lipstick GRWM",
+          "platform": "Meta",
+          "ctr30d": 1.48,
+          "cpa30dInr": 208,
+          "frequency30d": 2.4,
+          "fatigued": false
+        },
+        {
+          "id": "cr-012-b",
+          "name": "Search — lip kit",
+          "platform": "Google",
+          "ctr30d": 2.08,
+          "cpa30dInr": 176,
+          "frequency30d": 1.9,
+          "fatigued": false
+        },
+        {
+          "id": "cr-012-c",
+          "name": "Influencer whitelisting",
+          "platform": "Meta",
+          "ctr30d": 0.99,
+          "cpa30dInr": 244,
+          "frequency30d": 3.7,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-013",
+      "name": "Wakefit",
+      "platforms": ["Google", "Meta", "Amazon"],
+      "monthlyBudgetInr": 7500000,
+      "spendToDateInr": 4980000,
+      "maxDailySpend90dInr": 330000,
+      "todaySpendInr": 224000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-013-a",
+          "name": "100-night trial story",
+          "platform": "Meta",
+          "ctr30d": 1.14,
+          "cpa30dInr": 512,
+          "frequency30d": 2.6,
+          "fatigued": false
+        },
+        {
+          "id": "cr-013-b",
+          "name": "Mattress comparison search",
+          "platform": "Google",
+          "ctr30d": 1.92,
+          "cpa30dInr": 468,
+          "frequency30d": 2.1,
+          "fatigued": false
+        },
+        {
+          "id": "cr-013-c",
+          "name": "Amazon sleep bundle",
+          "platform": "Amazon",
+          "ctr30d": 0.84,
+          "cpa30dInr": 558,
+          "frequency30d": 3.4,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-014",
+      "name": "Bombay Shaving Company",
+      "platforms": ["Google", "Meta"],
+      "monthlyBudgetInr": 3100000,
+      "spendToDateInr": 2040000,
+      "maxDailySpend90dInr": 142000,
+      "todaySpendInr": 98000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-014-a",
+          "name": "Trimmer unboxing reel",
+          "platform": "Meta",
+          "ctr30d": 1.32,
+          "cpa30dInr": 228,
+          "frequency30d": 2.8,
+          "fatigued": false
+        },
+        {
+          "id": "cr-014-b",
+          "name": "Search — grooming kit",
+          "platform": "Google",
+          "ctr30d": 2.24,
+          "cpa30dInr": 194,
+          "frequency30d": 1.6,
+          "fatigued": false
+        },
+        {
+          "id": "cr-014-c",
+          "name": "D2C offer static",
+          "platform": "Meta",
+          "ctr30d": 0.92,
+          "cpa30dInr": 262,
+          "frequency30d": 3.2,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-015",
+      "name": "ixigo",
+      "platforms": ["Google", "Meta", "DV360"],
+      "monthlyBudgetInr": 6400000,
+      "spendToDateInr": 4180000,
+      "maxDailySpend90dInr": 288000,
+      "todaySpendInr": 198000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-015-a",
+          "name": "Train waitlist saver",
+          "platform": "Meta",
+          "ctr30d": 1.08,
+          "cpa30dInr": 142,
+          "frequency30d": 2.5,
+          "fatigued": false
+        },
+        {
+          "id": "cr-015-b",
+          "name": "Flight deal display",
+          "platform": "DV360",
+          "ctr30d": 0.72,
+          "cpa30dInr": 198,
+          "frequency30d": 3.8,
+          "fatigued": false
+        },
+        {
+          "id": "cr-015-c",
+          "name": "UAC — holiday calendar",
+          "platform": "Google",
+          "ctr30d": 1.56,
+          "cpa30dInr": 128,
+          "frequency30d": 2.2,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-016",
+      "name": "MakeMyTrip",
+      "platforms": ["Google", "Meta", "DV360"],
+      "monthlyBudgetInr": 16800000,
+      "spendToDateInr": 11020000,
+      "maxDailySpend90dInr": 720000,
+      "todaySpendInr": 488000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-016-a",
+          "name": "Long-weekend package film",
+          "platform": "Meta",
+          "ctr30d": 1.04,
+          "cpa30dInr": 388,
+          "frequency30d": 2.7,
+          "fatigued": false
+        },
+        {
+          "id": "cr-016-b",
+          "name": "Connected TV getaway",
+          "platform": "DV360",
+          "ctr30d": 0.64,
+          "cpa30dInr": 512,
+          "frequency30d": 4.7,
+          "fatigued": false
+        },
+        {
+          "id": "cr-016-c",
+          "name": "Search — flights + hotels",
+          "platform": "Google",
+          "ctr30d": 2.48,
+          "cpa30dInr": 302,
+          "frequency30d": 1.5,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-017",
+      "name": "BigBasket",
+      "platforms": ["Google", "Meta"],
+      "monthlyBudgetInr": 1200000,
+      "spendToDateInr": 780000,
+      "maxDailySpend90dInr": 118000,
+      "todaySpendInr": 168000,
+      "overspendBreach": true,
+      "creatives": [
+        {
+          "id": "cr-017-a",
+          "name": "BBnow 10-min promise",
+          "platform": "Meta",
+          "ctr30d": 1.38,
+          "cpa30dInr": 108,
+          "frequency30d": 3.1,
+          "fatigued": false
+        },
+        {
+          "id": "cr-017-b",
+          "name": "Grocery UAC burst",
+          "platform": "Google",
+          "ctr30d": 1.16,
+          "cpa30dInr": 124,
+          "frequency30d": 2.9,
+          "fatigued": false
+        },
+        {
+          "id": "cr-017-c",
+          "name": "Household staples carousel",
+          "platform": "Meta",
+          "ctr30d": 0.97,
+          "cpa30dInr": 138,
+          "frequency30d": 3.6,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-018",
+      "name": "Fabindia",
+      "platforms": ["Google", "Meta", "Amazon"],
+      "monthlyBudgetInr": 3800000,
+      "spendToDateInr": 2510000,
+      "maxDailySpend90dInr": 168000,
+      "todaySpendInr": 118000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-018-a",
+          "name": "Handloom festive lookbook",
+          "platform": "Meta",
+          "ctr30d": 0.88,
+          "cpa30dInr": 428,
+          "frequency30d": 2.4,
+          "fatigued": false
+        },
+        {
+          "id": "cr-018-b",
+          "name": "Amazon home decor hub",
+          "platform": "Amazon",
+          "ctr30d": 0.76,
+          "cpa30dInr": 462,
+          "frequency30d": 3.2,
+          "fatigued": false
+        },
+        {
+          "id": "cr-018-c",
+          "name": "Search — kurta sets",
+          "platform": "Google",
+          "ctr30d": 1.82,
+          "cpa30dInr": 348,
+          "frequency30d": 2.0,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-019",
+      "name": "Haldiram's Snacks",
+      "platforms": ["Google", "Meta", "Amazon"],
+      "monthlyBudgetInr": 5200000,
+      "spendToDateInr": 3440000,
+      "maxDailySpend90dInr": 228000,
+      "todaySpendInr": 162000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-019-a",
+          "name": "Namkeen festival pack",
+          "platform": "Meta",
+          "ctr30d": 1.26,
+          "cpa30dInr": 88,
+          "frequency30d": 3.0,
+          "fatigued": false
+        },
+        {
+          "id": "cr-019-b",
+          "name": "Amazon pantry tile",
+          "platform": "Amazon",
+          "ctr30d": 0.94,
+          "cpa30dInr": 102,
+          "frequency30d": 3.4,
+          "fatigued": false
+        },
+        {
+          "id": "cr-019-c",
+          "name": "YouTube recipe integration",
+          "platform": "Google",
+          "ctr30d": 0.82,
+          "cpa30dInr": 118,
+          "frequency30d": 3.8,
+          "fatigued": false
+        }
+      ]
+    },
+    {
+      "id": "cl-020",
+      "name": "Urban Company",
+      "platforms": ["Google", "Meta", "DV360"],
+      "monthlyBudgetInr": 8900000,
+      "spendToDateInr": 6020000,
+      "maxDailySpend90dInr": 392000,
+      "todaySpendInr": 268000,
+      "overspendBreach": false,
+      "creatives": [
+        {
+          "id": "cr-020-a",
+          "name": "Salon at home reel",
+          "platform": "Meta",
+          "ctr30d": 1.16,
+          "cpa30dInr": 312,
+          "frequency30d": 2.6,
+          "fatigued": false
+        },
+        {
+          "id": "cr-020-b",
+          "name": "AC service seasonal push",
+          "platform": "Google",
+          "ctr30d": 1.44,
+          "cpa30dInr": 278,
+          "frequency30d": 2.3,
+          "fatigued": false
+        },
+        {
+          "id": "cr-020-c",
+          "name": "Premium homes display",
+          "platform": "DV360",
+          "ctr30d": 0.48,
+          "cpa30dInr": 498,
+          "frequency30d": 5.6,
+          "fatigued": true
+        }
+      ]
+    }
+  ]
+}

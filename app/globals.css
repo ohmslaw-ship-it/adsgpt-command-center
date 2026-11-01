@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #363535;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-plus-jakarta);
+
+  --color-navy: #050545;
+  --color-ink: #0a0a0a;
+  --color-text: #363535;
+  --color-muted: #606266;
+  --color-line: #ededed;
+  --color-bg-alt: #f8f9fd;
+  --color-lavender: #b8a9fe;
+  --color-lavender-light: #d8ccfa;
+  --color-coral: #ff7d85;
+  --color-saffron: #fec530;
+  --color-success: #41873f;
+  --color-info: #0099ff;
+  --color-hero-wash: #f1f3ff;
+
+  --radius-card: 12px;
+  --radius-panel: 28px;
+}
+
+@utility shadow-card {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+@utility brand-gradient {
+  background-image: radial-gradient(
+    100% 107% at 0% 50%,
+    #ff7d85 0%,
+    #b8a9fe 50%,
+    #fec530 100%
+  );
+}
+
+@utility rounded-card {
+  border-radius: var(--radius-card);
+}
+
+@utility rounded-panel {
+  border-radius: var(--radius-panel);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.55s ease,
+      transform 0.55s ease;
+    transition-delay: var(--fade-delay, 0ms);
+  }
+
+  .fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-up {
+    opacity: 1;
+    transform: none;
+  }
+}
