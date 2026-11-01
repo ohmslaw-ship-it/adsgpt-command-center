@@ -102,7 +102,7 @@ export const prdUserStories: PrdUserStory[] = [
     story:
       "As an Agency Account Lead, I want tired creatives called out, so I can refresh them before results drop.",
     acceptance: [
-      "Given a creative's frequency is above 4 and its CTR has dropped over the last 30 days, when the brief loads, then it is flagged Fatigued and the client moves to Watch, unless it is already Overspend.",
+      "Given a creative's frequency is above 4 and its CTR is at least 15% below the median of the client's other creatives, when the brief loads, then it is flagged Fatigued and the client moves to Watch, unless it is already Overspend.",
       "Given a client is on Watch for fatigue, when I expand its row, then I see which of its creatives are fatigued.",
     ],
   },
@@ -135,32 +135,32 @@ export const prdRequirements: PrdRequirement[] = [
   {
     feature: "Portfolio table",
     priority: "P0",
-    rule: "One sortable table: client, status, today spend, MTD pacing bar, creative tags. Default sort: Overspend → Watch → Healthy, then name (see compareClientsByStatus in lib/rules.ts).",
+    rule: "One sortable table with client, status, today's spend, month-to-date pacing and creative health. Sorted Overspend first, then Watch, then Healthy, then by name.",
   },
   {
     feature: "Client status",
     priority: "P0",
-    rule: "Overspend when today's spend is more than 4× the max daily spend over the last 90 days; else Watch when MTD pacing is above 110% or any creative is fatigued; else Healthy (see resolveClientStatus in lib/rules.ts).",
+    rule: "Overspend when today's spend is more than 4× the highest daily spend in the last 90 days. Otherwise Watch when month-to-date pacing is above 110% or any creative is fatigued. Otherwise Healthy.",
   },
   {
     feature: "Overspend summary",
     priority: "P0",
-    rule: "Count clients where todaySpendInr > 4 × maxDailySpend90dInr (see overspendThresholdInr / isOverspend in lib/rules.ts).",
+    rule: "Counts every client currently marked Overspend, so the lead sees today's risk in one number.",
   },
   {
     feature: "Creative fatigue",
     priority: "P0",
-    rule: "Flag a creative when frequency30d > 4 and ctr30d is below 85% of the median ctr30d among the client's other creatives — at least 15% below that median (see isCreativeFatigued in lib/rules.ts).",
+    rule: "Flag a creative when its 30-day frequency is above 4 and its CTR is at least 15% below the median of the client's other creatives.",
   },
   {
     feature: "Ask AdsGPT actions",
     priority: "P1",
-    rule: "Surface governed suggestions (e.g. pause campaign, reduce daily cap) from the client drawer; apply as session overrides for the prototype narrative.",
+    rule: "Suggest safe, reviewable actions, such as pausing a campaign or lowering a daily cap, from the chat or a client's row. In this prototype they apply to the session only.",
   },
   {
     feature: "Undo",
     priority: "P1",
-    rule: "Single-step undo of the last session override; recalculate status using the same overspend, pacing, and fatigue rules in lib/rules.ts.",
+    rule: "One-step undo of the last action, after which the client's status is recalculated with the same rules.",
   },
 ];
 
@@ -168,22 +168,22 @@ export const prdEdgeCases: PrdEdgeCase[] = [
   {
     scenario: "New client with partial 90-day history",
     behaviour:
-      "Use the available trailing max daily spend as maxDailySpend90dInr; overspend still applies isOverspend (today's spend more than 4× that max). MTD pacing can still move the client to Watch above 110%.",
+      "Use the highest daily spend available so far as the baseline. The 4× overspend rule still applies, and pacing above 110% can still move the client to Watch.",
   },
   {
     scenario: "Paused campaign",
     behaviour:
-      "Paused entities show zero today spend but remain visible; status derives from account-level roll-up via resolveClientStatus. Actions offer \"Resume\" instead of pause when already paused.",
+      "Paused campaigns stay visible with zero spend today. The client's status rolls up from its other campaigns, and the action offers Resume instead of Pause.",
   },
   {
     scenario: "Currency mismatch",
     behaviour:
-      "Normalize to the book's reporting currency (INR in this concept) for thresholds; show original currency in the drawer footnote when source differs.",
+      "Convert everything to the agency's reporting currency (INR in this concept) before checking thresholds, and show the original currency in a footnote.",
   },
   {
     scenario: "Action fails on the platform side",
     behaviour:
-      "Keep the UI override only on confirmed success; on failure, show error state, do not change status, and offer retry or copy API error for the planner to handle in-platform.",
+      "Only update the row after the platform confirms the change. On failure, show an error, keep the status unchanged, and offer Retry or a copyable error for the planner.",
   },
 ];
 
