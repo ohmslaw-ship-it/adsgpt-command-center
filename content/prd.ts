@@ -70,7 +70,7 @@ export const prdUsers = {
 
 export const prdGoals = {
   goals: [
-    "Cut Monday portfolio review from ~3 hours to under 20 minutes per account manager.",
+    "Cut Monday portfolio review from ~3 hours to under 20 minutes per account lead.",
     "Catch overspend the same day it happens, not at the next weekly review.",
     "Let the lead act in one click, with undo, instead of logging into four ad platforms.",
   ],

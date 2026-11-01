@@ -96,16 +96,12 @@ function SummaryCard({
   label,
   value,
   caption,
-  delta,
-  deltaClassName,
   icon,
   iconTint,
 }: {
   label: string;
   value: string;
   caption: string;
-  delta: string;
-  deltaClassName: string;
   icon: React.ReactNode;
   iconTint: string;
 }) {
@@ -124,14 +120,7 @@ function SummaryCard({
       <p className="mt-5 text-[40px] font-bold leading-none tabular-nums text-navy">
         {value}
       </p>
-      <div className="mt-4 flex flex-wrap items-center gap-2">
-        <span
-          className={`rounded-full px-2.5 py-0.5 text-[12px] font-semibold tabular-nums ${deltaClassName}`}
-        >
-          {delta}
-        </span>
-        <span className="truncate text-[14px] text-muted">{caption}</span>
-      </div>
+      <p className="mt-4 text-[14px] text-muted">{caption}</p>
     </div>
   );
 }
@@ -324,7 +313,7 @@ function ClientRowDetail({
                 {todayVsCap}
               </span>{" "}
               of the daily cap
-              {overspend ? " (overspend breach)." : "."}
+              {overspend ? ", so it's flagged as overspend." : "."}
             </p>
             <button
               type="button"
@@ -609,7 +598,7 @@ export function PrototypeSection() {
             className="live-dot-pulse h-2 w-2 shrink-0 rounded-full bg-[#2F6B2E]"
             aria-hidden
           />
-          <p className="text-[14px] text-muted">Monday, 3 Nov</p>
+          <p className="text-[14px] text-muted">Monday, 2 Nov</p>
         </div>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -617,8 +606,6 @@ export function PrototypeSection() {
             label="Total spend this month"
             value={formatInrCompact(summary.totalSpendToDateInr)}
             caption="MTD across portfolio"
-            delta="+4 since yesterday"
-            deltaClassName="bg-[#EEEAFE] text-lavender-dark"
             iconTint="bg-[#EEEAFE] text-navy"
             icon={
               <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden>
@@ -636,8 +623,6 @@ export function PrototypeSection() {
             label="Accounts on track"
             value={String(summary.accountsOnTrack)}
             caption="Healthy & on pace"
-            delta="+2 since yesterday"
-            deltaClassName="bg-[#EAF6EA] text-[#2F6B2E]"
             iconTint="bg-[#EAF6EA] text-[#2F6B2E]"
             icon={
               <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden>
@@ -654,9 +639,7 @@ export function PrototypeSection() {
           <SummaryCard
             label="Overspend alerts"
             value={String(summary.overspendAlerts)}
-            caption="Above 4× daily max"
-            delta="+1 since yesterday"
-            deltaClassName="bg-[#FFF0F1] text-[#D9465A]"
+            caption="Above 4× the 90-day daily max"
             iconTint="bg-[#FFF0F1] text-[#D9465A]"
             icon={
               <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden>
@@ -679,8 +662,6 @@ export function PrototypeSection() {
             label="Fatigued creatives"
             value={String(summary.fatiguedCreatives)}
             caption="Freq. + CTR drop"
-            delta="+3 since yesterday"
-            deltaClassName="bg-[#FFF7E0] text-[#A26A00]"
             iconTint="bg-[#FFF7E0] text-[#A26A00]"
             icon={
               <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden>

@@ -11,8 +11,8 @@ import { SiteHeader } from "@/components/site-header";
 /* Illustrative stats for the case-study narrative — not live data */
 const problemStats = [
   {
-    value: "23",
-    line: "Active ad accounts before the first coffee",
+    value: "20",
+    line: "Client accounts to check before the first stand-up",
     iconColor: "text-lavender-dark",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden>
@@ -72,8 +72,8 @@ const problemStats = [
     ),
   },
   {
-    value: "90 min",
-    line: "Average daily time in dashboards and sheets",
+    value: "3 hrs",
+    line: "Spent on Monday review prep, every week",
     iconColor: "text-[#8a6500]",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden>

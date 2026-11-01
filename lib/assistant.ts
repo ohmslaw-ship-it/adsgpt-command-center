@@ -132,7 +132,7 @@ export function buildAssistantReply(
     if (needsAction.length === 0) {
       return {
         intent,
-        text: "All 20 accounts look stable right now — no overspend or watch flags on sample data.",
+        text: "All 20 accounts look stable right now — no overspend or Watch flags in the sample data.",
         actions: [],
       };
     }
@@ -150,7 +150,9 @@ export function buildAssistantReply(
           `${client.fatiguedCreativeCount} fatigued ad${client.fatiguedCreativeCount === 1 ? "" : "s"}`,
         );
       }
-      return `${client.name} — watch${reasons.length ? `: ${reasons.join(", ")}` : ""}.`;
+      return reasons.length
+        ? `${client.name} is on Watch: ${reasons.join(", ")}.`
+        : `${client.name} is on Watch.`;
     });
 
     const actions: AssistantAction[] = [];
@@ -187,7 +189,7 @@ export function buildAssistantReply(
     if (totalFatigued === 0) {
       return {
         intent,
-        text: "No fatigued creatives on sample data — frequency and CTR look within guardrails.",
+        text: "No fatigued creatives in the sample data. Frequency and CTR look healthy.",
         actions: [],
       };
     }
@@ -222,7 +224,7 @@ export function buildAssistantReply(
     if (overspending.length === 0) {
       return {
         intent,
-        text: "No accounts are above the 4× daily max rule today on this sample set.",
+        text: "No accounts are above the 4× daily max today.",
         actions: [],
       };
     }
@@ -251,11 +253,11 @@ export function buildAssistantReply(
   const topOverspend = sorted.find((c) => c.status === "Overspend");
 
   const text = [
-    `Week-to-date on sample data (day 20 of 30): ${formatInrCompact(totalMtd)} spent of ${formatInrCompact(totalBudget)} budget — ${formatPercent(portfolioPacing, 0)} portfolio pacing.`,
+    `Month to date (day 20 of 30): ${formatInrCompact(totalMtd)} spent of ${formatInrCompact(totalBudget)} budget — ${formatPercent(portfolioPacing, 0)} portfolio pacing.`,
     `${statusCounts.Healthy} healthy · ${statusCounts.Watch} watch · ${statusCounts.Overspend} overspend · ${fatiguedTotal} fatigued ads.`,
     topOverspend
-      ? `Largest fire: ${topOverspend.name} at ${formatInrTable(topOverspend.todaySpendInr)} today.`
-      : "No overspend breaches flagged this morning.",
+      ? `Biggest risk: ${topOverspend.name} at ${formatInrTable(topOverspend.todaySpendInr)} today.`
+      : "No overspend flagged this morning.",
   ].join("\n");
 
   const actions: AssistantAction[] = [];
@@ -304,7 +306,7 @@ export function buildClientDayReply(
     );
   } else {
     lines.push(
-      `On track — ${formatPercent(client.pacingPercent, 0)} MTD pacing, no overspend breach.`,
+      `On track, at ${formatPercent(client.pacingPercent, 0)} month-to-date pacing with no overspend.`,
     );
   }
 
