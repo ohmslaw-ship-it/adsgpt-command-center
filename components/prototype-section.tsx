@@ -1,7 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { AskAdsGptPanel } from "@/components/ask-adsgpt-panel";
 import type { ClientStatus, EnrichedClient } from "@/lib/types";
+import {
+  EMPTY_SESSION_OVERRIDES,
+  getEnrichedClientsWithOverrides,
+  getPortfolioSummary,
+  type SessionOverrides,
+} from "@/lib/clients";
 import {
   formatCtr,
   formatFrequency,
@@ -223,25 +230,32 @@ function ClientDrawer({
   );
 }
 
-export function PrototypeSection({
-  clients,
-  summary,
-}: {
-  clients: EnrichedClient[];
-  summary: {
-    totalSpendToDateInr: number;
-    accountsOnTrack: number;
-    overspendAlerts: number;
-    fatiguedCreatives: number;
-  };
-}) {
+export function PrototypeSection() {
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("All");
-  const [selected, setSelected] = useState<EnrichedClient | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [sessionOverrides, setSessionOverrides] = useState<SessionOverrides>(
+    EMPTY_SESSION_OVERRIDES,
+  );
+
+  const displayClients = useMemo(
+    () => getEnrichedClientsWithOverrides(sessionOverrides),
+    [sessionOverrides],
+  );
+
+  const summary = useMemo(
+    () => getPortfolioSummary(displayClients),
+    [displayClients],
+  );
+
+  const selected = useMemo(() => {
+    if (!selectedId) return null;
+    return displayClients.find((c) => c.id === selectedId) ?? null;
+  }, [displayClients, selectedId]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return clients.filter((client) => {
+    return displayClients.filter((client) => {
       if (statusFilter !== "All" && client.status !== statusFilter) {
         return false;
       }
@@ -250,7 +264,7 @@ export function PrototypeSection({
       }
       return true;
     });
-  }, [clients, query, statusFilter]);
+  }, [displayClients, query, statusFilter]);
 
   const filters: StatusFilter[] = ["All", "Overspend", "Watch", "Healthy"];
 
@@ -289,7 +303,8 @@ export function PrototypeSection({
         />
       </div>
 
-      <div className="mt-10 rounded-panel border border-line bg-white p-6 shadow-card lg:p-8">
+      <div className="mt-10 flex flex-col items-start gap-6 lg:flex-row">
+        <div className="min-w-0 flex-1 rounded-panel border border-line bg-white p-6 shadow-card lg:p-8">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <label className="relative block w-full max-w-sm">
             <span className="sr-only">Search clients</span>
@@ -354,7 +369,7 @@ export function PrototypeSection({
                   <tr
                     key={client.id}
                     className="cursor-pointer border-b border-line transition-colors last:border-0 hover:bg-bg-alt/80"
-                    onClick={() => setSelected(client)}
+                    onClick={() => setSelectedId(client.id)}
                   >
                     <td className="py-4 pr-4 align-middle font-medium text-navy">
                       {client.name}
@@ -414,10 +429,19 @@ export function PrototypeSection({
             </p>
           ) : null}
         </div>
+        </div>
+
+        <div className="w-full lg:sticky lg:top-24 lg:w-[380px] lg:shrink-0">
+          <AskAdsGptPanel
+            clients={displayClients}
+            overrides={sessionOverrides}
+            onOverridesChange={setSessionOverrides}
+          />
+        </div>
       </div>
 
       {selected ? (
-        <ClientDrawer client={selected} onClose={() => setSelected(null)} />
+        <ClientDrawer client={selected} onClose={() => setSelectedId(null)} />
       ) : null}
     </div>
   );

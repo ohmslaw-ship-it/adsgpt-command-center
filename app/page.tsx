@@ -2,7 +2,6 @@ import Link from "next/link";
 import { FadeIn, FadeInGroup } from "@/components/fade-in";
 import { PrototypeSection } from "@/components/prototype-section";
 import { SectionLink } from "@/components/section-link";
-import { getEnrichedClients, getPortfolioSummary } from "@/lib/clients";
 
 const navLinks = [
   { sectionId: "problem", label: "Problem" },
@@ -42,9 +41,6 @@ function PillButton({
 }
 
 export default function Home() {
-  const enrichedClients = getEnrichedClients();
-  const portfolioSummary = getPortfolioSummary(enrichedClients);
-
   return (
     <div className="flex flex-col flex-1">
       <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur-sm">
@@ -160,10 +156,7 @@ export default function Home() {
           className="scroll-mt-20 border-t border-line bg-white py-20 lg:py-24"
           aria-label="Monday morning brief prototype"
         >
-          <PrototypeSection
-            clients={enrichedClients}
-            summary={portfolioSummary}
-          />
+          <PrototypeSection />
         </section>
 
         <section
