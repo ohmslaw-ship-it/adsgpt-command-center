@@ -301,8 +301,12 @@ body {
     }
 
     .hover-table-row:hover {
-      background-color: #f6f7fe;
+      background-color: #fafafe;
       box-shadow: inset 3px 0 0 0 #6b5bd6;
+    }
+
+    .live-dot-pulse {
+      animation: live-dot-pulse 2s ease-in-out infinite;
     }
 
     .hover-chip-border:hover {
@@ -338,12 +342,57 @@ body {
       animation: none;
       opacity: 0;
     }
+
+    .live-dot-pulse {
+      animation: none;
+    }
+
+    .client-row-detail-shell {
+      transition: none;
+    }
   }
 }
 
 @keyframes hover-btn-shimmer {
   to {
     transform: translateX(120%);
+  }
+}
+
+@keyframes live-dot-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .client-row-detail-shell {
+    display: grid;
+    transition:
+      grid-template-rows 250ms ease-out,
+      opacity 250ms ease-out;
+  }
+
+  .client-row-detail-shell[data-state="closed"] {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+
+  .client-row-detail-shell[data-state="open"] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .client-row-detail-shell[data-state="closed"] {
+    display: none;
   }
 }
 

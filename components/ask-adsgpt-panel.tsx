@@ -1,8 +1,10 @@
 "use client";
 
 import {
+  forwardRef,
   useCallback,
   useEffect,
+  useImperativeHandle,
   useRef,
   useState,
   type FormEvent,
@@ -11,13 +13,11 @@ import type { EnrichedClient } from "@/lib/types";
 import {
   applyAssistantAction,
   buildAssistantReply,
+  buildClientDayReply,
   SUGGESTION_CHIPS,
   type AssistantAction,
 } from "@/lib/assistant";
-import {
-  EMPTY_SESSION_OVERRIDES,
-  type SessionOverrides,
-} from "@/lib/clients";
+import type { SessionOverrides } from "@/lib/clients";
 
 type ChatItem =
   | { id: string; kind: "user"; text: string }
@@ -51,15 +51,25 @@ function TypingIndicator() {
   );
 }
 
-export function AskAdsGptPanel({
-  clients,
-  overrides,
-  onOverridesChange,
-}: {
+export type AskAdsGptPanelHandle = {
+  sendMessage: (text: string, client?: EnrichedClient) => void;
+};
+
+type AskAdsGptPanelProps = {
   clients: EnrichedClient[];
   overrides: SessionOverrides;
   onOverridesChange: (next: SessionOverrides) => void;
-}) {
+  /** Fills parent flex column (floating shell); omits outer card chrome. */
+  embedded?: boolean;
+};
+
+export const AskAdsGptPanel = forwardRef<
+  AskAdsGptPanelHandle,
+  AskAdsGptPanelProps
+>(function AskAdsGptPanel(
+  { clients, overrides, onOverridesChange, embedded = false },
+  ref,
+) {
   const [input, setInput] = useState("");
   const [items, setItems] = useState<ChatItem[]>([]);
   const [typing, setTyping] = useState(false);
@@ -85,7 +95,7 @@ export function AskAdsGptPanel({
   }, []);
 
   const dispatchMessage = useCallback(
-    (text: string) => {
+    (text: string, clientForReply?: EnrichedClient) => {
       const trimmed = text.trim();
       if (!trimmed || typing) return;
 
@@ -98,7 +108,9 @@ export function AskAdsGptPanel({
 
       if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
       typingTimerRef.current = setTimeout(() => {
-        const reply = buildAssistantReply(trimmed, clients, overrides);
+        const reply = clientForReply
+          ? buildClientDayReply(clientForReply, overrides)
+          : buildAssistantReply(trimmed, clients, overrides);
         setItems((prev) => [
           ...prev,
           {
@@ -112,6 +124,16 @@ export function AskAdsGptPanel({
       }, 600);
     },
     [clients, overrides, typing],
+  );
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      sendMessage: (text: string, client?: EnrichedClient) => {
+        dispatchMessage(text, client);
+      },
+    }),
+    [dispatchMessage],
   );
 
   function handleSubmit(e: FormEvent) {
@@ -145,20 +167,32 @@ export function AskAdsGptPanel({
     });
   }
 
+  const rootClassName = embedded
+    ? "flex min-h-0 flex-1 flex-col"
+    : "flex h-[520px] flex-col rounded-3xl border border-[#E4E7FB] bg-white p-6 shadow-[0_8px_30px_rgba(5,5,69,0.06)] lg:h-[620px]";
+
   return (
-    <div className="flex h-[520px] flex-col rounded-3xl border border-[#E4E7FB] bg-white p-6 shadow-[0_8px_30px_rgba(5,5,69,0.06)] lg:h-[620px]">
-      <div className="shrink-0 border-b border-line px-5 py-5 lg:px-6">
-        <div className="flex items-center gap-2">
-          <span
-            className="h-2 w-2 shrink-0 rounded-full brand-gradient"
-            aria-hidden
-          />
-          <h3 className="text-h3">Ask AdsGPT</h3>
+    <div className={rootClassName}>
+      {!embedded ? (
+        <div className="shrink-0 border-b border-line px-5 py-5 lg:px-6">
+          <div className="flex items-center gap-2">
+            <span
+              className="h-2 w-2 shrink-0 rounded-full brand-gradient"
+              aria-hidden
+            />
+            <h3 className="text-h3">Ask AdsGPT</h3>
+          </div>
+          <p className="mt-1 text-label-muted normal-case tracking-normal">
+            Scripted demo on sample data.
+          </p>
         </div>
-        <p className="mt-1 text-label-muted normal-case tracking-normal">
-          Scripted demo on sample data.
-        </p>
-      </div>
+      ) : (
+        <div className="shrink-0 border-b border-line px-5 py-4 lg:px-6">
+          <p className="text-label-muted normal-case tracking-normal">
+            Scripted demo on sample data.
+          </p>
+        </div>
+      )}
 
       <div
         className={`shrink-0 border-b border-line px-5 py-3 lg:px-6 ${
@@ -276,4 +310,4 @@ export function AskAdsGptPanel({
       </form>
     </div>
   );
-}
+});

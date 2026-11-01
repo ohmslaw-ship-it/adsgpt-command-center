@@ -274,6 +274,57 @@ export function buildAssistantReply(
   return { intent, text, actions };
 }
 
+/** Scripted reply for “What should I do about [Client] today?” */
+export function buildClientDayReply(
+  client: EnrichedClient,
+  overrides: SessionOverrides,
+): AssistantReply {
+  const actions: AssistantAction[] = [];
+  const lines: string[] = [`Here’s what matters for ${client.name} today:`];
+
+  if (isOverspend(client.todaySpendInr, client.maxDailySpend90dInr)) {
+    lines.push(
+      `Overspend at ${formatInrTable(client.todaySpendInr)} today — cap is ${formatInrTable(client.overspendThresholdInr)} (4× 90d max).`,
+    );
+    actions.push(makeCapSpendAction(client));
+  } else if (client.status === "Watch") {
+    const reasons: string[] = [];
+    if (client.pacingPercent > 110) {
+      reasons.push(`${formatPercent(client.pacingPercent, 0)} MTD pacing`);
+    }
+    if (client.fatiguedCreativeCount > 0) {
+      reasons.push(
+        `${client.fatiguedCreativeCount} fatigued ad${client.fatiguedCreativeCount === 1 ? "" : "s"}`,
+      );
+    }
+    lines.push(
+      reasons.length
+        ? `Watch status: ${reasons.join(", ")}.`
+        : "Watch status.",
+    );
+  } else {
+    lines.push(
+      `On track — ${formatPercent(client.pacingPercent, 0)} MTD pacing, no overspend breach.`,
+    );
+  }
+
+  const fatigued = fatiguedActiveCreatives(client, overrides);
+  if (fatigued.length > 0) {
+    const pauseAction = makePauseFatiguedAction(client, fatigued);
+    if (pauseAction) actions.push(pauseAction);
+  }
+
+  lines.push(
+    `Spend ${formatInrTable(client.spendToDateInr)} of ${formatInrTable(client.monthlyBudgetInr)} budget MTD · today ${formatInrTable(client.todaySpendInr)}.`,
+  );
+
+  return {
+    intent: "attention",
+    text: lines.join("\n"),
+    actions: actions.slice(0, 3),
+  };
+}
+
 function makeCapSpendAction(client: EnrichedClient): AssistantAction {
   const capAmountInr = client.maxDailySpend90dInr;
   return {
