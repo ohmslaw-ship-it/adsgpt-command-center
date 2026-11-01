@@ -146,7 +146,7 @@ export function AskAdsGptPanel({
   }
 
   return (
-    <div className="flex h-[520px] flex-col rounded-panel bg-white shadow-panel-depth lg:h-[620px]">
+    <div className="flex h-[520px] flex-col rounded-3xl border border-[#E4E7FB] bg-white p-6 shadow-[0_8px_30px_rgba(5,5,69,0.06)] lg:h-[620px]">
       <div className="shrink-0 border-b border-line px-5 py-5 lg:px-6">
         <div className="flex items-center gap-2">
           <span

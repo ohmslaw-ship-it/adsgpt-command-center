@@ -150,8 +150,7 @@ export default function Home() {
             </FadeIn>
 
             <FadeIn className="mt-16 flex w-full flex-col items-center">
-              <div className="h-1.5 w-full max-w-md rounded-full brand-gradient opacity-80" />
-              <p className="mt-4 text-label-muted">
+              <p className="text-label-muted">
                 Unofficial PM case study · Om Raje
               </p>
             </FadeIn>
@@ -210,14 +209,14 @@ export default function Home() {
 
         <section
           id="metrics"
-          className="scroll-mt-20 section-full-bleed section-lavender-band py-20 lg:py-28"
+          className="scroll-mt-20 section-full-bleed section-lavender-band pt-20 pb-32 lg:pt-28"
           aria-label="Success metrics"
         >
           <MetricsSection />
         </section>
-      </main>
 
-      <SiteFooter />
+        <SiteFooter />
+      </main>
     </div>
   );
 }

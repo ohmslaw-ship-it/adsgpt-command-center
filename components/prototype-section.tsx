@@ -452,14 +452,14 @@ export function PrototypeSection() {
                   Client
                 </th>
                 <th className="py-5 pr-4 align-middle font-medium">Platforms</th>
-                <th className="py-5 pr-4 align-middle font-medium">
+                <th className="py-5 pr-4 align-middle text-right font-medium tabular-nums">
                   Spend vs budget
                 </th>
-                <th className="py-5 pr-4 align-middle font-medium">
+                <th className="py-5 pr-4 align-middle text-right font-medium tabular-nums">
                   Today&apos;s spend
                 </th>
                 <th className="py-5 pr-4 align-middle font-medium">Status</th>
-                <th className="py-5 align-middle font-medium last:rounded-tr-xl">
+                <th className="py-5 align-middle text-right font-medium tabular-nums last:rounded-tr-xl">
                   Fatigued ads
                 </th>
               </tr>
@@ -485,7 +485,7 @@ export function PrototypeSection() {
                         ))}
                       </div>
                     </td>
-                    <td className="py-5 pr-4 align-middle">
+                    <td className="py-5 pr-4 align-middle text-right">
                       <p className="tabular-nums text-navy">
                         {formatInrTable(client.spendToDateInr)}
                         <span className="text-fg-muted">
@@ -494,7 +494,7 @@ export function PrototypeSection() {
                         </span>
                       </p>
                       <div
-                        className="mt-2 h-1.5 w-full max-w-[200px] overflow-hidden rounded-full bg-[#EDEDED]"
+                        className="mt-2 ml-auto h-1.5 w-full max-w-[200px] overflow-hidden rounded-full bg-[#EDEDED]"
                         aria-hidden
                       >
                         <div
@@ -508,13 +508,13 @@ export function PrototypeSection() {
                         {formatPercent(client.pacingPercent, 0)} pacing
                       </p>
                     </td>
-                    <td className="py-5 pr-4 align-middle tabular-nums text-navy">
+                    <td className="py-5 pr-4 align-middle text-right tabular-nums text-navy">
                       {formatInrTable(client.todaySpendInr)}
                     </td>
                     <td className="py-5 pr-4 align-middle">
                       <StatusPill status={client.status} />
                     </td>
-                    <td className="py-5 align-middle tabular-nums text-navy">
+                    <td className="py-5 align-middle text-right tabular-nums text-navy">
                       {client.fatiguedCreativeCount}
                     </td>
                   </tr>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SectionLink } from "@/components/section-link";
 
 const navLinks = [
@@ -10,6 +10,8 @@ const navLinks = [
   { sectionId: "prd", label: "PRD" },
   { sectionId: "metrics", label: "Metrics" },
 ] as const;
+
+const NAV_SCROLL_OFFSET_PX = 140;
 
 function NavPillButton({
   sectionId,
@@ -30,6 +32,8 @@ function NavPillButton({
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
+  const scrollLockUntilRef = useRef(0);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -37,6 +41,71 @@ export function SiteHeader() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    const sectionIds = navLinks.map((link) => link.sectionId);
+    const lastSectionId = sectionIds[sectionIds.length - 1] ?? "";
+    let rafId: number | null = null;
+
+    const pageCannotScrollFurther = () => {
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
+      return scrollTop + clientHeight >= scrollHeight - 1;
+    };
+
+    const updateActiveFromScroll = () => {
+      rafId = null;
+      if (Date.now() < scrollLockUntilRef.current) return;
+
+      const problemSection = document.getElementById("problem");
+      if (
+        problemSection &&
+        problemSection.getBoundingClientRect().top > NAV_SCROLL_OFFSET_PX
+      ) {
+        setActiveSectionId(null);
+        return;
+      }
+
+      const lastElement = document.getElementById(lastSectionId);
+      if (pageCannotScrollFurther() && lastElement) {
+        const lastTop = lastElement.getBoundingClientRect().top;
+        if (lastTop >= 0 && lastTop <= window.innerHeight) {
+          setActiveSectionId(lastSectionId);
+          return;
+        }
+      }
+
+      let nextActive = sectionIds[0] ?? null;
+      for (const id of sectionIds) {
+        const element = document.getElementById(id);
+        if (!element) continue;
+        if (element.getBoundingClientRect().top <= NAV_SCROLL_OFFSET_PX) {
+          nextActive = id;
+        }
+      }
+      setActiveSectionId(nextActive);
+    };
+
+    const onScroll = () => {
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(updateActiveFromScroll);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    updateActiveFromScroll();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
+    };
+  }, []);
+
+  const handleNavClick = (sectionId: string) => {
+    setActiveSectionId(sectionId);
+    scrollLockUntilRef.current = Date.now() + 700;
+  };
 
   return (
     <header
@@ -55,15 +124,24 @@ export function SiteHeader() {
           className="hidden flex-1 justify-center gap-9 md:flex"
           aria-label="Primary"
         >
-          {navLinks.map((link) => (
-            <SectionLink
-              key={link.sectionId}
-              sectionId={link.sectionId}
-              className="text-[16px] font-medium text-muted transition-colors hover:text-navy"
-            >
-              {link.label}
-            </SectionLink>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = activeSectionId === link.sectionId;
+            return (
+              <SectionLink
+                key={link.sectionId}
+                sectionId={link.sectionId}
+                onNavigate={() => handleNavClick(link.sectionId)}
+                className={`border-b-2 pb-0.5 text-[16px] transition-colors ${
+                  isActive
+                    ? "border-lavender font-semibold text-navy"
+                    : "border-transparent font-medium text-muted hover:text-navy"
+                }`}
+                aria-current={isActive ? "true" : undefined}
+              >
+                {link.label}
+              </SectionLink>
+            );
+          })}
         </nav>
         <div className="ml-auto shrink-0">
           <NavPillButton sectionId="prototype">Open prototype</NavPillButton>

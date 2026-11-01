@@ -17,7 +17,7 @@ const rolePostingUrl =
 
 export function SiteFooter() {
   return (
-    <footer className="section-full-bleed overflow-hidden rounded-t-[32px] bg-[#050545] pt-24 pb-10 text-white">
+    <footer className="section-full-bleed relative -mt-8 overflow-hidden rounded-t-[32px] bg-[#050545] pt-24 pb-10 text-white">
       <FadeIn>
         <Container>
           <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">

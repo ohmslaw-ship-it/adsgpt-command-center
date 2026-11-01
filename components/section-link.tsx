@@ -20,13 +20,16 @@ export function SectionLink({
   sectionId,
   className,
   children,
+  onNavigate,
 }: {
   sectionId: string;
   className?: string;
   children: ReactNode;
+  onNavigate?: (sectionId: string) => void;
 }) {
   function handleClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
+    onNavigate?.(sectionId);
     scrollToSection(sectionId);
   }
 

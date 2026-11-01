@@ -121,7 +121,20 @@ export function MetricsSection() {
                   aria-label={`From ${metricsNorthStar.baseline} to ${metricsNorthStar.target}`}
                 >
                   {metricsNorthStar.baseline}
-                  <span className="mx-2 font-normal text-muted">→</span>
+                  <svg
+                    viewBox="0 0 32 32"
+                    fill="none"
+                    aria-hidden
+                    className="mx-3 inline-block h-8 w-8 shrink-0 align-middle text-[#6B5BD6]"
+                  >
+                    <path
+                      d="M6 16h18M18 10l6 6-6 6"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                   {metricsNorthStar.target}
                 </p>
                 <p className="mt-2 text-[14px] font-medium uppercase tracking-[0.08em] text-fg-muted">
