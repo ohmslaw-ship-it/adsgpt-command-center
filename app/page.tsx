@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/container";
 import { FadeIn, FadeInGroup } from "@/components/fade-in";
+import { PrdSection } from "@/components/prd-section";
 import { PrototypeSection } from "@/components/prototype-section";
 import { SectionLink } from "@/components/section-link";
 
@@ -162,9 +163,11 @@ export default function Home() {
 
         <section
           id="prd"
-          className="scroll-mt-20 border-t border-line bg-bg-alt py-20 lg:py-24"
-          aria-label="PRD placeholder"
-        />
+          className="scroll-mt-20 border-t border-line bg-[#F5F6FC] py-20 lg:py-24"
+          aria-label="Product requirements"
+        >
+          <PrdSection />
+        </section>
 
         <section
           id="metrics"
