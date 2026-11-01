@@ -186,56 +186,12 @@ body {
   }
 }
 
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@keyframes border-spin {
-  to {
-    --angle: 360deg;
-  }
-}
-
 /* Restrained hover interactions (motion-heavy parts off under prefers-reduced-motion) */
 @layer components {
   .hover-card-primary {
     position: relative;
-    isolation: isolate;
     border: 1px solid var(--color-line);
-    transition:
-      transform 250ms ease-out,
-      box-shadow 250ms ease-out,
-      border-color 300ms ease-out;
-  }
-
-  .hover-card-primary::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    padding: 1px;
-    --angle: 0deg;
-    background: conic-gradient(
-      from var(--angle),
-      #ff7d85,
-      #b8a9fe,
-      #fec530,
-      #ff7d85
-    );
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 300ms ease-out;
-    pointer-events: none;
-    z-index: 1;
+    transition: all 250ms ease-out;
   }
 
   .hover-card-secondary {
@@ -321,13 +277,10 @@ body {
     .hover-card-primary:hover,
     .fade-in-up.is-visible.hover-card-primary:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgb(5 5 69 / 0.08);
-      border-color: transparent;
-    }
-
-    .hover-card-primary:hover::before {
-      opacity: 1;
-      animation: border-spin 3s linear infinite;
+      border-color: #b8a9fe;
+      box-shadow:
+        0 0 0 3px rgb(184 169 254 / 0.18),
+        0 14px 34px rgb(5 5 69 / 0.08);
     }
 
     .hover-card-secondary:hover,
@@ -379,7 +332,6 @@ body {
       transition: none;
     }
 
-    .hover-card-primary::before,
     .hover-btn-primary::after,
     .hover-chip-border::before {
       animation: none;
