@@ -101,7 +101,7 @@ export function MetricsSection() {
 
       <Reveal className="mb-8">
         <article
-          className={`hover-card-primary rounded-3xl bg-white p-10 ${panelShadow}`}
+          className={`hover-card-primary north-star-card-border rounded-3xl p-10 ${panelShadow}`}
         >
           <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
               <div className="min-w-0 max-w-xl">
@@ -143,20 +143,25 @@ export function MetricsSection() {
                 <span>Target · {metricsNorthStar.target}</span>
               </div>
               <div
-                className="relative mt-3 h-2 overflow-hidden rounded-full bg-[#E8EBFC]"
+                className="relative mt-3 h-3"
                 role="img"
                 aria-label="Progress from baseline prep time to target"
               >
-                <div className="absolute inset-y-0 left-0 w-full rounded-full brand-gradient opacity-70" />
+                <div
+                  className="absolute inset-x-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full"
+                  style={{
+                    background: "linear-gradient(90deg, #C9C3F5, #6B5BD6)",
+                  }}
+                />
                 <span
-                  className="absolute left-0 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-white bg-navy shadow-sm"
+                  className="absolute left-0 top-1/2 z-[1] h-3 w-3 -translate-y-1/2 rounded-full border-2 border-[#C9C3F5] bg-white"
                   aria-hidden
                 />
                 <span
-                  className="absolute right-0 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-white bg-lavender-dark shadow-sm"
+                  className="absolute right-0 top-1/2 z-[1] h-3 w-3 -translate-y-1/2 rounded-full border-2 border-white bg-[#6B5BD6]"
                   aria-hidden
                 />
-            </div>
+              </div>
           </div>
         </article>
       </Reveal>

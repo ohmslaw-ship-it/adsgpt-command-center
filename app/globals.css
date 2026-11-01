@@ -177,6 +177,13 @@ body {
     transition: all 300ms ease-out;
   }
 
+  .north-star-card-border {
+    border: 2px solid transparent;
+    background:
+      linear-gradient(#fff, #fff) padding-box,
+      linear-gradient(135deg, #6b5bd6, #a78bfa, #f0a6ca) border-box;
+  }
+
   .hover-btn-primary {
     position: relative;
     overflow: hidden;
@@ -260,6 +267,10 @@ body {
     .hover-card-primary:hover {
       border-color: var(--color-line);
       outline: none;
+    }
+
+    .north-star-card-border.hover-card-primary:hover {
+      border-color: transparent;
     }
 
     .hover-btn-primary:hover {
