@@ -146,7 +146,7 @@ export function AskAdsGptPanel({
   }
 
   return (
-    <div className="flex h-[520px] flex-col rounded-panel border border-line bg-white shadow-card lg:h-[620px]">
+    <div className="flex h-[520px] flex-col rounded-panel bg-white shadow-panel-depth lg:h-[620px]">
       <div className="shrink-0 border-b border-line px-5 py-5 lg:px-6">
         <div className="flex items-center gap-2">
           <span
@@ -177,7 +177,7 @@ export function AskAdsGptPanel({
               key={chip}
               type="button"
               onClick={() => dispatchMessage(chip)}
-              className="shrink-0 rounded-full border border-line bg-bg-alt px-3 py-1.5 text-left text-label-muted normal-case tracking-normal whitespace-nowrap text-navy transition-colors hover:border-lavender hover:bg-white"
+              className="shrink-0 rounded-full border border-line bg-bg-alt px-4 py-2.5 text-left text-[15px] font-medium normal-case tracking-normal whitespace-nowrap text-navy transition-colors hover:border-lavender hover:bg-white"
             >
               {chip}
             </button>
@@ -193,7 +193,7 @@ export function AskAdsGptPanel({
           if (item.kind === "user") {
             return (
               <div key={item.id} className="flex justify-end">
-                <p className="max-w-[92%] rounded-2xl bg-navy px-4 py-2.5 text-body text-white">
+                <p className="max-w-[92%] rounded-2xl bg-navy px-4 py-2.5 text-[16px] leading-normal text-white">
                   {item.text}
                 </p>
               </div>
@@ -204,7 +204,7 @@ export function AskAdsGptPanel({
             return (
               <div
                 key={item.id}
-                className="rounded-card border border-success/30 bg-success/12 px-4 py-3 text-body text-navy"
+                className="rounded-card border border-success/30 bg-success/12 px-4 py-3 text-[16px] leading-normal text-navy"
               >
                 <span>{item.text} </span>
                 <button
@@ -220,7 +220,7 @@ export function AskAdsGptPanel({
 
           return (
             <div key={item.id} className="max-w-full space-y-3">
-              <p className="whitespace-pre-line rounded-2xl bg-bg-alt px-4 py-3 text-body">
+              <p className="whitespace-pre-line rounded-2xl bg-bg-alt px-4 py-3 text-[16px] leading-normal text-text">
                 {item.text}
               </p>
               {item.actions.length > 0 ? (
@@ -252,7 +252,7 @@ export function AskAdsGptPanel({
         onSubmit={handleSubmit}
         className="shrink-0 border-t border-line p-4 lg:p-5"
       >
-        <div className="flex items-center gap-2 rounded-full border border-line bg-bg-alt py-1.5 pl-4 pr-1.5">
+        <div className="flex h-12 items-center gap-2 rounded-full border border-line bg-bg-alt pl-4 pr-1.5">
           <label className="sr-only" htmlFor="ask-adsgpt-input">
             Message AdsGPT
           </label>
@@ -262,13 +262,13 @@ export function AskAdsGptPanel({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about spend, fatigue, pacing…"
-            className="min-w-0 flex-1 bg-transparent text-body text-navy outline-none placeholder:text-fg-muted"
+            className="min-w-0 flex-1 bg-transparent text-[16px] text-navy outline-none placeholder:text-fg-muted"
             autoComplete="off"
           />
           <button
             type="submit"
             disabled={!input.trim() || typing}
-            className="shrink-0 rounded-full bg-ink px-5 py-2.5 text-button font-semibold text-white transition-colors hover:bg-navy disabled:cursor-not-allowed disabled:opacity-40"
+            className="shrink-0 rounded-full bg-ink px-5 py-2 text-[16px] font-semibold text-white transition-colors hover:bg-navy disabled:cursor-not-allowed disabled:opacity-40"
           >
             Send
           </button>

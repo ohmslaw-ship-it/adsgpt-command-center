@@ -28,46 +28,20 @@
   --radius-card: 12px;
   --radius-panel: 28px;
 
-  --text-hero-lg: 4rem;
-  --text-section-lg: 2.75rem;
-  --text-nav: 15px;
-  --text-nav--line-height: 1.5;
-  --text-button: 16px;
-  --text-button--line-height: 1.5;
-  --text-table: 15px;
+  --text-table: 16px;
   --text-table--line-height: 1.5;
 }
 
-@utility text-hero {
-  font-size: 2.5rem;
-  line-height: 1.08;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--color-navy);
-}
-
-@media (width >= 1024px) {
-  .text-hero {
-    font-size: var(--text-hero-lg);
-  }
-}
-
 @utility text-h2 {
-  font-size: 2.5rem;
+  font-size: 48px;
   line-height: 1.15;
   font-weight: 700;
   letter-spacing: -0.015em;
   color: var(--color-navy);
 }
 
-@media (width >= 1024px) {
-  .text-h2 {
-    font-size: var(--text-section-lg);
-  }
-}
-
 @utility text-h3 {
-  font-size: 1.25rem;
+  font-size: 22px;
   line-height: 1.35;
   font-weight: 600;
   color: var(--color-navy);
@@ -75,20 +49,20 @@
 
 @utility text-body {
   font-size: 17px;
-  line-height: 1.65;
+  line-height: 1.7;
   font-weight: 400;
   color: var(--color-text);
 }
 
 @utility text-muted {
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 17px;
+  line-height: 1.7;
   font-weight: 400;
   color: var(--color-muted);
 }
 
 @utility text-label {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -106,8 +80,16 @@
 }
 
 @utility text-stat {
-  font-size: 2.5rem;
+  font-size: 48px;
   line-height: 1.1;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-navy);
+}
+
+@utility text-stat-problem {
+  font-size: 56px;
+  line-height: 1.08;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: var(--color-navy);
@@ -128,6 +110,18 @@
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.05),
     0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+@utility shadow-panel-depth {
+  box-shadow:
+    0 1px 2px rgba(16, 24, 64, 0.04),
+    0 12px 32px -8px rgba(16, 24, 64, 0.1);
+}
+
+@utility section-lavender-band {
+  background-color: #eef0fd;
+  border-top: 1px solid #e4e7fb;
+  border-bottom: 1px solid #e4e7fb;
 }
 
 @utility brand-gradient {
@@ -245,4 +239,11 @@ body {
     0 0 32px rgb(255 255 255 / 0.95),
     0 0 12px rgb(255 255 255 / 0.85),
     0 1px 2px rgb(255 255 255 / 0.6);
+}
+
+@utility text-table {
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--color-text);
 }

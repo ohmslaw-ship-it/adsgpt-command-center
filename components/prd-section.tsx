@@ -206,20 +206,20 @@ export function PrdSection() {
   return (
     <Container>
       <FadeIn>
-        <header className="max-w-[820px]">
+        <header className="mb-14 max-w-[820px]">
           <p className="text-label">{prdMeta.label}</p>
           <h2 className="mt-3 text-h2">{prdMeta.title}</h2>
-          <p className="mt-3 text-muted">{prdMeta.subtitle}</p>
+          <p className="mt-3 text-subline">{prdMeta.subtitle}</p>
         </header>
       </FadeIn>
 
-      <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(11rem,14rem)_minmax(0,820px)_1fr] lg:gap-x-12 xl:gap-x-16">
+      <div className="mx-auto grid w-full max-w-[1108px] grid-cols-1 gap-12 lg:grid-cols-[260px_minmax(0,820px)]">
         <nav
-          className="hidden shrink-0 lg:block"
+          className="hidden w-[260px] shrink-0 lg:block"
           aria-label="PRD table of contents"
         >
           <ul
-            className={`sticky top-24 space-y-0.5 rounded-2xl bg-white p-2 ${prdPanelShadow}`}
+            className={`sticky top-24 w-[260px] space-y-0.5 rounded-2xl bg-white p-2 ${prdPanelShadow}`}
           >
             {prdToc.map((item) => {
               const isActive = activeId === item.id;
@@ -228,7 +228,7 @@ export function PrdSection() {
                   <a
                     href={`#${item.id}`}
                     onClick={() => handleTocClick(item.id)}
-                    className={`block rounded-xl px-3 py-2 text-[15px] font-medium leading-snug transition-colors ${
+                    className={`block rounded-xl px-3 py-2.5 text-[16px] font-medium leading-snug transition-colors ${
                       isActive
                         ? "bg-[#EEEAFE] text-navy"
                         : "text-fg-muted hover:bg-[#F8F9FD] hover:text-navy"
@@ -243,9 +243,9 @@ export function PrdSection() {
           </ul>
         </nav>
 
-        <div className="min-w-0 space-y-6 lg:max-w-[820px]">
+        <div className="min-w-0 max-w-[820px] space-y-6">
           <PrdCard id="prd-problem" title={prdProblem.title}>
-            <p className="text-muted">{prdProblem.body}</p>
+            <p className="text-body">{prdProblem.body}</p>
           </PrdCard>
 
           <PrdCard id="prd-users" title="Users">
@@ -312,9 +312,9 @@ export function PrdSection() {
               <table className="w-full min-w-[520px] border-collapse text-left text-table">
                 <thead>
                   <tr className="bg-bg-alt text-label-muted">
-                    <th className="py-4 pr-4 font-semibold">Feature</th>
-                    <th className="py-4 pr-4 font-semibold">Priority</th>
-                    <th className="py-4 font-semibold">Rule</th>
+                    <th className="py-5 pr-4 font-semibold">Feature</th>
+                    <th className="py-5 pr-4 font-semibold">Priority</th>
+                    <th className="py-5 font-semibold">Rule</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -323,17 +323,17 @@ export function PrdSection() {
                       key={row.feature}
                       className="border-b border-line/70 align-top last:border-0"
                     >
-                      <td className="py-4 pr-4 font-medium text-navy">
+                      <td className="py-5 pr-4 font-medium text-navy">
                         {row.feature}
                       </td>
-                      <td className="py-4 pr-4">
+                      <td className="py-5 pr-4">
                         <span
                           className={`inline-flex rounded-full px-2.5 py-0.5 text-[13px] font-semibold ${priorityStyles[row.priority]}`}
                         >
                           {row.priority}
                         </span>
                       </td>
-                      <td className="py-4 text-muted">{row.rule}</td>
+                      <td className="py-5 text-body">{row.rule}</td>
                     </tr>
                   ))}
                 </tbody>

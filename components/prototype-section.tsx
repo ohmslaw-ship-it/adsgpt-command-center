@@ -30,7 +30,7 @@ function StatusPill({ status }: { status: ClientStatus }) {
 
   return (
     <span
-      className={`inline-flex rounded-full px-2.5 py-0.5 text-label ${styles[status]}`}
+      className={`inline-flex rounded-full px-3 py-1.5 text-[14px] font-semibold ${styles[status]}`}
     >
       {status}
     </span>
@@ -55,17 +55,67 @@ function SummaryCard({
   label,
   value,
   hint,
+  icon,
+  trend,
+  iconTint = "bg-[#EEEAFE] text-lavender-dark",
 }: {
   label: string;
   value: string;
   hint?: string;
+  icon: React.ReactNode;
+  trend?: string;
+  iconTint?: string;
 }) {
   return (
-    <div className="rounded-card border border-line bg-white p-5 shadow-card">
-      <p className="text-label-muted">{label}</p>
+    <div className="flex min-h-[150px] flex-col rounded-card bg-white p-8 shadow-panel-depth">
+      <div
+        className={`flex h-10 w-10 items-center justify-center rounded-xl ${iconTint}`}
+      >
+        {icon}
+      </div>
+      <p className="mt-4 text-label-muted">{label}</p>
       <p className="mt-2 text-stat">{value}</p>
-      {hint ? <p className="mt-1 text-label-muted normal-case tracking-normal">{hint}</p> : null}
+      {trend ? (
+        /* Illustrative trend — sample data, not live */
+        <p className="mt-1 text-[13px] font-normal normal-case tracking-normal text-fg-muted">
+          {trend}
+        </p>
+      ) : null}
+      {hint ? (
+        <p className="mt-1 text-label-muted normal-case tracking-normal">
+          {hint}
+        </p>
+      ) : null}
     </div>
+  );
+}
+
+const PLATFORM_BADGES: Record<
+  string,
+  { abbr: string; className: string }
+> = {
+  Google: { abbr: "G", className: "bg-[#E8F0FE] text-[#1A73E8]" },
+  Meta: { abbr: "M", className: "bg-[#E7F0FF] text-[#1877F2]" },
+  DV360: { abbr: "DV", className: "bg-[#E6F4EA] text-[#188038]" },
+  Amazon: { abbr: "A", className: "bg-[#FFF3E0] text-[#E47911]" },
+};
+
+function PlatformBadge({ platform }: { platform: string }) {
+  const badge = PLATFORM_BADGES[platform] ?? {
+    abbr: platform.slice(0, 1),
+    className: "bg-bg-alt text-muted",
+  };
+  const isWide = badge.abbr.length > 1;
+
+  return (
+    <span
+      title={platform}
+      className={`inline-flex h-[22px] shrink-0 items-center justify-center rounded-full text-[11px] font-bold leading-none ${badge.className} ${
+        isWide ? "min-w-[22px] px-1.5" : "w-[22px]"
+      }`}
+    >
+      {badge.abbr}
+    </span>
   );
 }
 
@@ -262,37 +312,99 @@ export function PrototypeSection() {
 
   return (
     <Container>
-      <p className="text-label">Prototype</p>
-      <h2 className="mt-3 text-h2">Monday morning brief</h2>
-      <p className="mt-3 max-w-2xl text-muted">
-        All 20 client accounts, ranked by what needs you first.
-      </p>
+      <header className="mb-14">
+        <p className="text-label">Prototype</p>
+        <h2 className="mt-3 text-h2">Monday morning brief</h2>
+        <p className="mt-3 max-w-2xl text-subline">
+          All 20 client accounts, ranked by what needs you first.
+        </p>
+      </header>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <SummaryCard
           label="Total spend this month"
           value={formatInrCompact(summary.totalSpendToDateInr)}
           hint="Month-to-date across portfolio"
+          trend="+4 vs last week"
+          icon={
+            <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden>
+              <path
+                d="M4 18h16M6 14l3-4 3 2 4-6 2 4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          }
         />
         <SummaryCard
           label="Accounts on track"
           value={String(summary.accountsOnTrack)}
           hint="Healthy pacing & creatives"
+          trend="+2 vs last week"
+          iconTint="bg-success/12 text-success"
+          icon={
+            <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden>
+              <path
+                d="M6 12l4 4 8-8"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          }
         />
         <SummaryCard
           label="Overspend alerts"
           value={String(summary.overspendAlerts)}
           hint="Today above 4× 90d daily max"
+          trend="+1 vs last week"
+          iconTint="bg-[#FFF4F5] text-coral"
+          icon={
+            <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden>
+              <path
+                d="M12 8v5M12 16h.01"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M10.5 3.5h3L20 19H4L10.5 3.5z"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+            </svg>
+          }
         />
         <SummaryCard
           label="Fatigued creatives"
           value={String(summary.fatiguedCreatives)}
           hint="High frequency + CTR drop"
+          trend="+3 vs last week"
+          iconTint="bg-[#FFF8E6] text-[#8a6500]"
+          icon={
+            <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden>
+              <path
+                d="M4 16V8a2 2 0 012-2h12a2 2 0 012 2v8"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              />
+              <path
+                d="M8 20h8M10 14h4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          }
         />
       </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px]">
-        <div className="min-w-0 rounded-panel border border-line bg-white p-6 shadow-card lg:p-8">
+      <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_420px]">
+        <div className="min-w-0 rounded-panel bg-white p-8 shadow-panel-depth">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <label className="relative block w-full max-w-sm">
             <span className="sr-only">Search clients</span>
@@ -335,17 +447,21 @@ export function PrototypeSection() {
           </p>
           <table className="w-full min-w-[880px] border-collapse text-left text-table lg:min-w-0">
             <thead>
-              <tr className="border-b border-line text-label-muted">
-                <th className="pb-3 pr-4 align-middle font-medium">Client</th>
-                <th className="pb-3 pr-4 align-middle font-medium">Platforms</th>
-                <th className="pb-3 pr-4 align-middle font-medium">
+              <tr className="bg-[#F8F9FD] text-label-muted">
+                <th className="py-5 pr-4 align-middle font-medium first:rounded-tl-xl">
+                  Client
+                </th>
+                <th className="py-5 pr-4 align-middle font-medium">Platforms</th>
+                <th className="py-5 pr-4 align-middle font-medium">
                   Spend vs budget
                 </th>
-                <th className="pb-3 pr-4 align-middle font-medium">
+                <th className="py-5 pr-4 align-middle font-medium">
                   Today&apos;s spend
                 </th>
-                <th className="pb-3 pr-4 align-middle font-medium">Status</th>
-                <th className="pb-3 align-middle font-medium">Fatigued ads</th>
+                <th className="py-5 pr-4 align-middle font-medium">Status</th>
+                <th className="py-5 align-middle font-medium last:rounded-tr-xl">
+                  Fatigued ads
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -356,25 +472,20 @@ export function PrototypeSection() {
                 return (
                   <tr
                     key={client.id}
-                    className="cursor-pointer border-b border-line transition-colors last:border-0 hover:bg-bg-alt/80"
+                    className="cursor-pointer border-b border-line transition-[background-color,box-shadow] last:border-0 hover:bg-[#F3F4FE]/70 hover:[box-shadow:inset_3px_0_0_0_#B8A9FE]"
                     onClick={() => setSelectedId(client.id)}
                   >
-                    <td className="py-4 pr-4 align-middle font-medium text-navy">
+                    <td className="py-5 pr-4 align-middle font-medium text-navy">
                       {client.name}
                     </td>
-                    <td className="py-4 pr-5 align-middle">
-                      <div className="flex flex-wrap gap-2">
+                    <td className="py-5 pr-5 align-middle">
+                      <div className="flex flex-wrap items-center gap-1.5">
                         {client.platforms.map((platform) => (
-                          <span
-                            key={platform}
-                            className="rounded-full bg-bg-alt px-2.5 py-1 text-label-muted normal-case tracking-normal"
-                          >
-                            {platform}
-                          </span>
+                          <PlatformBadge key={platform} platform={platform} />
                         ))}
                       </div>
                     </td>
-                    <td className="py-4 pr-4 align-middle">
+                    <td className="py-5 pr-4 align-middle">
                       <p className="tabular-nums text-navy">
                         {formatInrTable(client.spendToDateInr)}
                         <span className="text-fg-muted">
@@ -397,13 +508,13 @@ export function PrototypeSection() {
                         {formatPercent(client.pacingPercent, 0)} pacing
                       </p>
                     </td>
-                    <td className="py-4 pr-4 align-middle tabular-nums text-navy">
+                    <td className="py-5 pr-4 align-middle tabular-nums text-navy">
                       {formatInrTable(client.todaySpendInr)}
                     </td>
-                    <td className="py-4 pr-4 align-middle">
+                    <td className="py-5 pr-4 align-middle">
                       <StatusPill status={client.status} />
                     </td>
-                    <td className="py-4 align-middle tabular-nums text-navy">
+                    <td className="py-5 align-middle tabular-nums text-navy">
                       {client.fatiguedCreativeCount}
                     </td>
                   </tr>
@@ -419,7 +530,7 @@ export function PrototypeSection() {
         </div>
         </div>
 
-        <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
+        <div className="min-w-0 lg:sticky lg:top-[88px] lg:self-start">
           <AskAdsGptPanel
             clients={displayClients}
             overrides={sessionOverrides}
