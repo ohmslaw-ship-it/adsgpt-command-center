@@ -113,7 +113,7 @@ export function SiteHeader() {
         scrolled ? "bg-white/90 backdrop-blur-md" : "bg-white"
       }`}
     >
-      <div className="mx-auto flex h-[72px] w-full max-w-[1440px] items-center gap-6 px-10">
+      <div className="mx-auto flex h-[72px] w-full max-w-[1440px] items-center gap-6 px-6 md:px-8 lg:px-10">
         <Link
           href="/"
           className="shrink-0 text-[20px] font-bold text-navy"

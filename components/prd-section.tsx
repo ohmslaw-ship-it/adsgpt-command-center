@@ -61,31 +61,19 @@ function PrdUserRows({
   );
 }
 
-function PrdNumberedList({ items }: { items: string[] }) {
-  return (
-    <ol className="list-none space-y-3">
-      {items.map((item, index) => (
-        <li key={item} className="flex gap-3 text-muted">
-          <span
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EEEAFE] text-[13px] font-semibold text-[#6B5BD6]"
-            aria-hidden
-          >
-            {index + 1}
-          </span>
-          <span className="min-w-0 pt-0.5">{item}</span>
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-function PrdMutedDashList({ items }: { items: string[] }) {
+function PrdDotList({
+  items,
+  dotClassName,
+}: {
+  items: string[];
+  dotClassName: string;
+}) {
   return (
     <ul className="list-none space-y-3">
       {items.map((item) => (
         <li key={item} className="flex items-start gap-3 text-muted">
           <span
-            className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#B8BAD6]"
+            className={`mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full ${dotClassName}`}
             aria-hidden
           />
           <span>{item}</span>
@@ -93,6 +81,10 @@ function PrdMutedDashList({ items }: { items: string[] }) {
       ))}
     </ul>
   );
+}
+
+function PrdMutedDashList({ items }: { items: string[] }) {
+  return <PrdDotList items={items} dotClassName="bg-[#B8BAD6]" />;
 }
 
 function splitUserStory(story: string) {
@@ -255,14 +247,17 @@ export function PrdSection() {
           </PrdCard>
 
           <PrdCard id="prd-goals" title="Goals">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl bg-hero-wash p-5 sm:p-6">
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-stretch">
+              <div className="flex h-full flex-col rounded-2xl bg-hero-wash p-5 sm:p-6">
                 <p className="font-medium text-navy">Goals</p>
                 <div className="mt-3">
-                  <PrdNumberedList items={prdGoals.goals} />
+                  <PrdDotList
+                    items={prdGoals.goals}
+                    dotClassName="bg-[#6B5BD6]"
+                  />
                 </div>
               </div>
-              <div className="rounded-2xl bg-[#FFF4F5] p-5 sm:p-6">
+              <div className="flex h-full flex-col rounded-2xl bg-[#F7F7FA] p-5 sm:p-6">
                 <p className="font-medium text-navy">Non-goals</p>
                 <div className="mt-3">
                   <PrdMutedDashList items={prdGoals.nonGoals} />

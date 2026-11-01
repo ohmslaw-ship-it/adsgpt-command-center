@@ -12,13 +12,16 @@ export function HeroBackground() {
         }}
       />
 
-      <div className="hero-blob hero-blob--lavender absolute -left-[12%] -top-[8%] h-[min(520px,55vw)] w-[min(520px,55vw)] rounded-full bg-[#B8A9FE] opacity-[0.42] blur-[100px]" />
-      <div className="hero-blob hero-blob--periwinkle absolute -right-[10%] -top-[6%] h-[min(480px,50vw)] w-[min(480px,50vw)] rounded-full bg-[#AFC3FF] opacity-[0.4] blur-[100px]" />
-      <div className="hero-blob hero-blob--coral absolute -bottom-[14%] -right-[6%] h-[min(440px,48vw)] w-[min(440px,48vw)] rounded-full bg-[#FF9CA3] opacity-[0.38] blur-[100px]" />
-      <div className="hero-blob hero-blob--saffron absolute -bottom-[10%] -left-[8%] h-[min(400px,45vw)] w-[min(400px,45vw)] rounded-full bg-[#FEC530] opacity-25 blur-[100px]" />
+      <div className="ambient-lavender-glow absolute -left-[18%] top-[8%] h-[min(620px,72vw)] w-[min(620px,72vw)] opacity-[0.28]" />
+      <div className="ambient-lavender-glow absolute -right-[14%] top-[22%] h-[min(540px,65vw)] w-[min(540px,65vw)] bg-[#D8CCFA] opacity-[0.32]" />
+
+      <div className="hero-dot-grid absolute inset-0" />
+
+      <div className="hero-blob hero-blob--coral absolute -bottom-[14%] -right-[6%] h-[min(440px,48vw)] w-[min(440px,48vw)] rounded-full bg-[#FF9CA3] opacity-[0.22] blur-[100px]" />
+      <div className="hero-blob hero-blob--saffron absolute -bottom-[10%] -left-[8%] h-[min(400px,45vw)] w-[min(400px,45vw)] rounded-full bg-[#FEC530] opacity-[0.14] blur-[100px]" />
 
       <svg
-        className="absolute inset-0 h-full w-full opacity-[0.06] mix-blend-soft-light"
+        className="absolute inset-0 h-full w-full opacity-[0.05] mix-blend-soft-light"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
       >

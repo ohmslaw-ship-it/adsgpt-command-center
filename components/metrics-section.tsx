@@ -11,8 +11,7 @@ import {
   type MetricsSupportingMetric,
 } from "@/content/metrics";
 
-const panelShadow =
-  "shadow-[0_1px_2px_rgba(16,24,64,.04),0_8px_24px_rgba(16,24,64,.06)]";
+const panelShadow = "shadow-panel-depth";
 
 function SupportingMetricIcon({ icon }: { icon: MetricsSupportingMetric["icon"] }) {
   const className = "h-5 w-5";
@@ -182,7 +181,7 @@ export function MetricsSection() {
       </FadeInGroup>
 
       <FadeIn>
-        <div className="hover-card-secondary rounded-3xl bg-white p-8 sm:p-10 lg:p-12">
+        <div className="hover-card-secondary surface-panel bg-white sm:p-10 lg:p-12">
           <h3 className="text-h3">{metricsTestStrip.heading}</h3>
           <ol className="relative mt-10 grid gap-10 md:grid-cols-3 md:gap-6">
             <div
